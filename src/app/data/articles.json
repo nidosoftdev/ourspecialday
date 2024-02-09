@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "The Perfect Venue: Finding Your Dream Wedding Location",
+    "image": "https://images.unsplash.com/photo-1509873889234-3cdbfe2e6740?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dg",
+    "description": "Discover how to find the perfect wedding venue that aligns with your vision, budget, and guest list. This guide offers tips on selecting a location that makes your big day unforgettable."
+  },
+  {
+    "id": 2,
+    "title": "Wedding Themes: Inspiration for Your Special Day",
+    "image": "https://images.unsplash.com/photo-1499568509606-4f9b771232ed?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Explore popular wedding themes that can help you decide on decor, attire, and overall ambiance. From rustic charm to modern elegance, find the inspiration you need to create a cohesive look for your wedding."
+  },
+  {
+    "id": 3,
+    "title": "DIY Wedding Decorations: Personalize Your Celebration",
+    "image": "https://images.unsplash.com/photo-1499568509606-4f9b771232ed?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Learn how to personalize your wedding with DIY decorations. This article provides creative ideas and step-by-step guides for making your own decor, adding a unique touch to your special day."
+  }
+]
