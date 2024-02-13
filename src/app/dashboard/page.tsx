@@ -35,7 +35,7 @@ export default function Dashboard() {
             </div>
             <p>Create an address form</p>
           </a>
-          <div className="flex w-full cursor-pointer gap-4 rounded-md border p-4 hover:bg-zinc-50">
+          <a href="./createsite" className="flex w-full cursor-pointer gap-4 rounded-md border p-4 hover:bg-zinc-50">
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@ export default function Dashboard() {
               </svg>
             </div>
             <p>Create an event site</p>
-          </div>
+          </a>
         </div>
       </div>
       <div className="mt-10">
