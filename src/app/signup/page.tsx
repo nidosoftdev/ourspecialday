@@ -1,13 +1,26 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NextUIProvider, Input, Checkbox, Button } from "@nextui-org/react";
+import {getAllUsers, getUserByEmail, createUser, updateUserByEmail, deleteUserByEmail} from "../server_layer/user"
+import {createUserWithEmailPassword,signInUser} from "../server_layer/authentication"
+import {createAddress, getAllAddress, getAddressById, deleteAddressById, updateAddressById} from "../server_layer/address"
 
 export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // testing code : don't delete
+  useEffect(()=>{
+    const getAllUser = async()=>{
+      const allusers = await updateAddressById("TPpLHeSvmdsdYpb9fqPT",{"userId":"QyyVpciDsuc2XlQQ1n0A","email":"test1@gmail.netmail", "name":"test345dfsdfsdfs", "password":"123456"},"QyyVpciDsuc2XlQQ1n0A" )
+      // const allusers = await deleteAddressById("PKH69HxMCNdoUCiJydRe","QyyVpciDsuc2XlQQ1n0A")
 
+      console.log(allusers)
+    }
+    // getAllUser()
+    
+  }, [])
   return (
     <NextUIProvider>
       <form className="mx-auto grid max-w-[600px] p-8">
