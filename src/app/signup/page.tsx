@@ -4,6 +4,8 @@ import { NextUIProvider, Input, Checkbox, Button } from "@nextui-org/react";
 import {getAllUsers, getUserByEmail, createUser, updateUserByEmail, deleteUserByEmail} from "../server_layer/user"
 import {createUserWithEmailPassword,signInUser} from "../server_layer/authentication"
 import {createAddress, getAllAddress, getAddressById, deleteAddressById, updateAddressById} from "../server_layer/address"
+import {createEventSite, getAllEventSite} from "../server_layer/eventSite"
+
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -13,8 +15,8 @@ export default function SignUp() {
   // testing code : don't delete
   useEffect(()=>{
     const getAllUser = async()=>{
-      const allusers = await updateAddressById("TPpLHeSvmdsdYpb9fqPT",{"userId":"QyyVpciDsuc2XlQQ1n0A","email":"test1@gmail.netmail", "name":"test345dfsdfsdfs", "password":"123456rt"},"QyyVpciDsuc2XlQQ1n0A" )
-      // const allusers = await deleteAddressById("PKH69HxMCNdoUCiJydRe","QyyVpciDsuc2XlQQ1n0A")
+      // const allusers = await createEventSite({"userId":"QyyVpciDsuc2XlQQ1n0A","email":"test1@gmail.netmail", "name":"test345dfsdfsdfs", "password":"123456rt"})
+      const allusers = await getAllEventSite("QyyVpciDsuc2XlQQ1n0A")
 
       console.log(allusers)
     }
