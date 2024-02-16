@@ -13,12 +13,12 @@ export default function SignUp() {
   // testing code : don't delete
   useEffect(()=>{
     const getAllUser = async()=>{
-      const allusers = await updateAddressById("TPpLHeSvmdsdYpb9fqPT",{"userId":"QyyVpciDsuc2XlQQ1n0A","email":"test1@gmail.netmail", "name":"test345dfsdfsdfs", "password":"123456"},"QyyVpciDsuc2XlQQ1n0A" )
+      const allusers = await updateAddressById("TPpLHeSvmdsdYpb9fqPT",{"userId":"QyyVpciDsuc2XlQQ1n0A","email":"test1@gmail.netmail", "name":"test345dfsdfsdfs", "password":"123456rt"},"QyyVpciDsuc2XlQQ1n0A" )
       // const allusers = await deleteAddressById("PKH69HxMCNdoUCiJydRe","QyyVpciDsuc2XlQQ1n0A")
 
       console.log(allusers)
     }
-    // getAllUser()
+    getAllUser()
     
   }, [])
   return (

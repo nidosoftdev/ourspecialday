@@ -14,7 +14,7 @@ const addressCollectionRef = collection(db,"address")
 
 // update a user
 export const updateAddressById = async (id, updatedData, userId) => {
-    // Create a query to find the address by id and userId
+    // Create a query to find the address userId
     const addressQuery = query(addressCollectionRef, where("userId", "==", userId));
 
     try {
