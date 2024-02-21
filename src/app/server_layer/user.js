@@ -109,9 +109,6 @@ export const createUser = async (userData) => {
     }
   };
 
-
-
-
 // get all users
 export const getAllUsers = async()=>{
     try{

@@ -12,14 +12,14 @@ const addressCollectionRef = collection(db,"address")
 
 
 
-// update a user
-export const updateAddressById = async (id, updatedData, userId) => {
+// update a specific address
+export const updateAddressById = async (id, updatedData, eventId) => {
     // Create a query to find the address userId
-    const addressQuery = query(addressCollectionRef, where("userId", "==", userId));
+    const addressQuery = query(addressCollectionRef, where("eventId", "==", eventId));
 
     try {
         // Get the documents that match the query
-        const querySnapshot = await getDocs(addressQuery);
+        const querySnapshot = await getDocs(addressQuery);   
 
         // Check if there are matching documents
         if (querySnapshot.empty) {
@@ -43,11 +43,11 @@ export const updateAddressById = async (id, updatedData, userId) => {
 };
 
 
-// Function to delete an address based on a user
-export const deleteAddressById = async (id, userId) => {
+// Function to delete an address based on a event
+export const deleteAddressById = async (id, eventId) => {
     try {
       // Fetch initial user data before attempting to delete
-      const address = await getAddressById(id,userId);
+      const address = await getAddressById(id,eventId);
   
       if (!address) {
         console.log("address not found.");
@@ -67,9 +67,9 @@ export const deleteAddressById = async (id, userId) => {
   };
 
 
-// Get a single address by a user
-export const getAddressById = async(id, userId)=>{
-    const addressQuery = query(addressCollectionRef, where("userId", "==", userId));
+// Get a single address by an specific event
+export const getAddressById = async(id, eventId)=>{
+    const addressQuery = query(addressCollectionRef, where("eventId", "==", eventId));
 
     try {
     // Get the documents that match the query
@@ -92,12 +92,12 @@ export const getAddressById = async(id, userId)=>{
   }
 }
 
-// get all addresses for a specific user
-export const getAllAddress = async (userId) => {
+// get all addresses for a specific event
+export const getAllAddress = async (eventId) => {
     try {
         const data = await getDocs(addressCollectionRef);
         const addresses = data.docs
-            .filter((doc) => doc.data().userId === userId) // Filter based on userId
+            .filter((doc) => doc.data().eventId === userId) // Filter based on userId
             .map((doc) => ({ ...doc.data(), id: doc.id }));
 
         return addresses;

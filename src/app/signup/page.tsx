@@ -15,7 +15,7 @@ export default function SignUp() {
 
   const signup = async (e:any) => {
     e.preventDefault()
-    const user = await createUserWithEmailPassword({"email":email, "name":name, "password":password})
+    const user = await signup({"email":email, "name":name, "password":password})
   }
 
   return (
