@@ -12,18 +12,10 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // testing code : don't delete
-  useEffect(()=>{
-    const getAllUser = async()=>{
-      const allusers = await createUserWithEmailPassword({"userId":"QyyVpciDsuc2XlQQ1n0A","email":"testey@gmail.netmail", "name":"test345", "password":"123456"})
-      // const allusers = await getUserByEmail("test1@gmail.netmail")
-      // const allusers = await getUserByEmail("test1@gmail.netmail")
-
-      console.log(allusers)
-    }
-    getAllUser()
-    
-  }, [])
+  const signup = async (e:any) => {
+    e.preventDefault()
+    const user = await createUserWithEmailPassword({"email":email, "name":name, "password":password})
+  }
 
   return (
     <NextUIProvider>
@@ -55,6 +47,7 @@ export default function SignUp() {
             <button
               type="submit"
               className="bg-primary rounded-md py-3 text-white"
+              onClick={(e)=>signup(e)}
             >
               Sign Up
             </button>
