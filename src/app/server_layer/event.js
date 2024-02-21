@@ -54,6 +54,8 @@ export const deleteEventById = async (id, userId) => {
   
       // Delete the user document in Firestore
       await deleteDoc(doc(eventCollectionRef, id));
+
+     // Need to delete all the Address and eventsite under this Event   
   
       console.log("Event and associated data deleted successfully.");
   

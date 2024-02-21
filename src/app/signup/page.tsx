@@ -6,14 +6,23 @@ import {signup,signInUser} from "../server_layer/authentication"
 import {createAddress, getAllAddress, getAddressById, deleteAddressById, updateAddressById} from "../server_layer/address"
 import {createEventSite, getAllEventSite} from "../server_layer/eventSite"
 import toast from "react-hot-toast";
+import {auth} from "../server_layer/config"
 
 export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleTest = async(e:React.FormEvent)=>{
+    e.preventDefault()
+    console.log("here")
+    const allusers = await getAllUsers()
+   
+    console.log(allusers)
+  }
 
-  const signup = async (e:any) => {
+
+  const signUp = async (e:React.FormEvent) => {
     e.preventDefault()
     const user = await signup({"email":email, "name":name, "password":password})
   }
@@ -49,7 +58,7 @@ export default function SignUp() {
               type="submit"
               className="bg-primary rounded-md py-3 text-white"
 
-              onClick={(e)=>signup(e)}
+              onClick={(e)=>handleTest(e)}
 
             >
               Sign Up
