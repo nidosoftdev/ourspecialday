@@ -12,26 +12,12 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // // testing code : don't delete
-  // useEffect(()=>{
-  //   const getAllUser = async()=>{
-  //     // const allusers = await createEventSite({"userId":"QyyVpciDsuc2XlQQ1n0A","email":"test1@gmail.netmail", "name":"test345dfsdfsdfs", "password":"123456rt"})
-  //     const allusers = await getAllEventSite("QyyVpciDsuc2XlQQ1n0A")
 
-  //     console.log(allusers)
-  //   }
-  //   getAllUser()
-    
-  // }, [])
-  const createUser = async()=>{
-
-    const user = await signup({"email":email, "name":name, "password":password})
-    if (user){
-      toast.success("User created successfully")
-    }
-   
-    console.log(user)
+  const signup = async (e:any) => {
+    e.preventDefault()
+    const user = await createUserWithEmailPassword({"email":email, "name":name, "password":password})
   }
+
   return (
     <NextUIProvider>
       <form className="mx-auto grid max-w-[600px] p-8">
@@ -62,7 +48,9 @@ export default function SignUp() {
             <button
               type="submit"
               className="bg-primary rounded-md py-3 text-white"
-              onClick={()=>{createUser()}}
+
+              onClick={(e)=>signup(e)}
+
             >
               Sign Up
             </button>

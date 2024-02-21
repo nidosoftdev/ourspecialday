@@ -6,9 +6,35 @@ import {
   UserCredential,
 } from "firebase/auth";
 
+const userId = auth.currentUser?.uid
 // Collection reference
 const userCollectionRef = collection(db,"user")
 
+// if(userId){
+//   let createdUserCollectionRef = collection(db, "user/"+userId)
+// }
+// Get a single user
+export const getUserByEmail = async(email)=>{
+  const userQuery = query(userCollectionRef, where("email", "==", email));
+
+  try {
+    // Get the documents that match the query
+    const querySnapshot = await getDocs(userQuery);
+
+    // Check if there are matching documents
+    if (querySnapshot.empty) {
+      console.log('No matching documents.');
+      return null;
+    }
+    const userDetail = querySnapshot.docs.map((doc)=>({...doc.data(), id:doc.id}));
+    
+    return userDetail[0]; 
+
+} catch (error) {
+  console.error("Error getting user by email:", error);
+  throw error;
+}
+}
 
 // Function to delete user and associated data based on email
 export const deleteUserByEmail = async (email) => {
@@ -84,28 +110,7 @@ export const createUser = async (userData) => {
   };
 
 
-// Get a single user
-export const getUserByEmail = async(email)=>{
-    const userQuery = query(userCollectionRef, where("email", "==", email));
 
-    try {
-    // Get the documents that match the query
-    const querySnapshot = await getDocs(userQuery);
-
-    // Check if there are matching documents
-    if (querySnapshot.empty) {
-      console.log('No matching documents.');
-      return null;
-    }
-    const userDetail = querySnapshot.docs.map((doc)=>({...doc.data(), id:doc.id}));
-    
-    return userDetail[0];
-
-  } catch (error) {
-    console.error("Error getting user by email:", error);
-    throw error;
-  }
-}
 
 // get all users
 export const getAllUsers = async()=>{
