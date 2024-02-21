@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPass
 import {createUser} from "./user"
 
 // Create user with Email and Password
-export const createUserWithEmailPassword = async(userInfo)=>{
+export const signup = async(userInfo)=>{
     try
     {
         // Create the email and password auth
@@ -11,15 +11,17 @@ export const createUserWithEmailPassword = async(userInfo)=>{
             auth,
             userInfo.email,
             userInfo.password
-          );
+        );
         const authUser = authUserCredential.user;
         
         // then create user
-        await createUser({
+        const user = await createUser({
             uid: authUser.uid,
             email: userInfo.email,
-            name : userInfo.name
-        })
+            name: userInfo.name
+        });
+        return authUser
+        
 
     }
     catch(err){
