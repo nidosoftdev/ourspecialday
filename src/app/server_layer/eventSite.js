@@ -13,9 +13,9 @@ const eventSiteCollectionRef = collection(db,"eventSite")
 
 
 // update a EventSite
-export const updateEventSiteById = async (id, updatedData, userId) => {
+export const updateEventSiteById = async (id, updatedData, eventId) => {
     // Create a query to find the EventSite userId
-    const eventSiteQuery = query(eventSiteCollectionRef, where("userId", "==", userId));
+    const eventSiteQuery = query(eventSiteCollectionRef, where("eventId", "==", eventId));
 
     try {
         // Get the documents that match the query
@@ -23,7 +23,7 @@ export const updateEventSiteById = async (id, updatedData, userId) => {
 
         // Check if there are matching documents
         if (querySnapshot.empty) {
-            console.log('No matching documents for the given id and userId.');
+            console.log('No matching documents for the given id and eventId.');
             return { success: false, message: 'No matching documents.' };
         }
 
@@ -40,11 +40,11 @@ export const updateEventSiteById = async (id, updatedData, userId) => {
 };
 
 
-// Function to delete an EventSite based on a user
-export const deleteAddressById = async (id, userId) => {
+// Function to delete an EventSite based on a event
+export const deleteAddressById = async (id, eventId) => {
     try {
       // Fetch initial user data before attempting to delete
-      const eventSite = await getEventSiteById(id,userId);
+      const eventSite = await getEventSiteById(id,eventId);
   
       if (!eventSite) {
         console.log("eventSite not found.");
@@ -64,9 +64,9 @@ export const deleteAddressById = async (id, userId) => {
   };
 
 
-// Get a single EventSite by a user
-export const getEventSiteById = async(id, userId)=>{
-    const eventQuery = query(eventSiteCollectionRef, where("userId", "==", userId));
+// Get a single EventSite by for an event
+export const getEventSiteById = async(id, eventId)=>{
+    const eventQuery = query(eventSiteCollectionRef, where("eventId", "==", eventId));
 
     try {
     // Get the documents that match the query
@@ -89,12 +89,12 @@ export const getEventSiteById = async(id, userId)=>{
   }
 }
 
-// get all EventSite for a specific user
-export const getAllEventSite = async (userId) => {
+// get all EventSite for a specific event
+export const getAllEventSite = async (eventId) => {
     try {
         const data = await getDocs(eventSiteCollectionRef);
         const eventSites = data.docs
-            .filter((doc) => doc.data().userId === userId) // Filter based on userId
+            .filter((doc) => doc.data().eventId === eventId) // Filter based on userId
             .map((doc) => ({ ...doc.data(), id: doc.id }));
 
         return eventSites;
