@@ -20,8 +20,8 @@ export const signup = async(userInfo)=>{
             email: userInfo.email,
             name: userInfo.name
         });
-        return authUser
         
+        return user
 
     }
     catch(err){
