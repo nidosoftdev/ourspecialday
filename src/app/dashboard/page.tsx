@@ -1,13 +1,17 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Blog from "../components/Blog";
-
+import { useUser } from "../components/context/UserContext";
 export default function Dashboard() {
+  
 
+  const { userData, loading } = useUser();
+
+  
   return (
     <div className="">
       <div>
-        <h1 className="text-3xl font-bold">Welcome</h1>
+        <h1 className="text-3xl font-bold">Welcome {userData?.displayName}</h1>
         <div className="mt-8 flex flex-col gap-4 md:flex-row">
           <a
             href="./addressform"

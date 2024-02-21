@@ -58,7 +58,7 @@ export default function SignUp() {
               type="submit"
               className="bg-primary rounded-md py-3 text-white"
 
-              onClick={(e)=>handleTest(e)}
+              onClick={(e)=>signUp(e)}
 
             >
               Sign Up

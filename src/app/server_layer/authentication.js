@@ -1,5 +1,5 @@
 import {auth, googleProvider} from "./config"
-import { createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword} from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword, onAuthStateChanged, updateProfile} from "firebase/auth"
 import {createUser} from "./user"
 
 // Create user with Email and Password
@@ -12,8 +12,13 @@ export const signup = async(userInfo)=>{
             userInfo.email,
             userInfo.password
         );
-        const authUser = authUserCredential.user;
         
+        const authUser = authUserCredential.user;
+         // Update the user's profile to set their display name
+         await updateProfile(authUser, {
+            displayName: userInfo.name, // Assuming userInfo.name is the desired display name
+        });
+
         // then create user
         const user = await createUser({
             uid: authUser.uid,
@@ -74,3 +79,19 @@ export const signInUserWithGoogle = async(userInfo)=>{
     }
     
 }
+
+
+
+export const getUserInfo = async () => {
+    return new Promise((resolve, reject) => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, return user information
+                resolve(user);
+            } else {
+                // No user is signed in.
+                reject('No user logged in');
+            }
+        });
+    });
+};
