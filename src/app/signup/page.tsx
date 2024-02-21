@@ -15,14 +15,16 @@ export default function SignUp() {
   // testing code : don't delete
   useEffect(()=>{
     const getAllUser = async()=>{
-      // const allusers = await createEventSite({"userId":"QyyVpciDsuc2XlQQ1n0A","email":"test1@gmail.netmail", "name":"test345dfsdfsdfs", "password":"123456rt"})
-      const allusers = await getAllEventSite("QyyVpciDsuc2XlQQ1n0A")
+      const allusers = await createUserWithEmailPassword({"userId":"QyyVpciDsuc2XlQQ1n0A","email":"testey@gmail.netmail", "name":"test345", "password":"123456"})
+      // const allusers = await getUserByEmail("test1@gmail.netmail")
+      // const allusers = await getUserByEmail("test1@gmail.netmail")
 
       console.log(allusers)
     }
     getAllUser()
     
   }, [])
+
   return (
     <NextUIProvider>
       <form className="mx-auto grid max-w-[600px] p-8">
