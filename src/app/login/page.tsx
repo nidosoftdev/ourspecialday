@@ -1,6 +1,7 @@
 "use client";
 import { Checkbox, Input, NextUIProvider } from "@nextui-org/react";
 import { useState,  } from "react";
+import {signup,signInUser} from "../server_layer/authentication"
 
 
 
@@ -10,7 +11,13 @@ export default function Login() {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  const signin = async()=>{
+    const user = await signInUser({"email":email, "password":password})
+    console.log(user)
+  }
 
   return (
     <NextUIProvider>
@@ -21,10 +28,8 @@ export default function Login() {
             Welcome back! Please login to your account.
           </p>
         </div>
-        <form
+        <div
           className="mt-8 flex flex-col gap-6"
-          method="post"
-          action="/api/auth/signin/email"
         >
           <input name="csrfToken" type="hidden"/>
           <Input
@@ -34,7 +39,7 @@ export default function Login() {
             type="email"
             label="Email"
             radius="sm"
-        
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Input
             classNames={{
@@ -43,7 +48,7 @@ export default function Login() {
             type={isVisible ? "text" : "password"}
             label="Password"
             radius="sm"
-            
+            onChange={(e) => setPassword(e.target.value)}
             endContent={
               <button
                 className="focus:outline-none"
@@ -81,10 +86,11 @@ export default function Login() {
           </p>
           <button
             className="bg-primary rounded-md py-3 text-white"
+            onClick={()=>{signin()}}
           >
             Login
           </button>
-        </form>
+        </div>
       </div>
     </NextUIProvider>
   );

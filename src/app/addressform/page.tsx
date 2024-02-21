@@ -4,34 +4,14 @@ import { useState } from "react";
 
 export default function AddresForm() {
   const [formTitle, setFormTitle] = useState("");
+  const [formURL, setFormURL] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [year, setYear] = useState("");
   const [formDescription, setFormDescription] = useState("");
   const [picture, setPicture] = useState<File | null>(null);
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("/api/createform", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ formTitle, month, day, year, formDescription}),
-      });
 
-      if (response.ok) {
-        // Handle success, maybe clear form or show success message
-        console.log("Signup successful");
-      } else {
-        // Handle errors, maybe show error message to user
-        console.error("Signup failed");
-      }
-    } catch (error) {
-      console.error("An error occurred during signup", error);
-    }
-  };
   return (
     <div className="max-w-[600px]">
       <h1 className="text-3xl font-bold">Create an address form</h1>
@@ -45,7 +25,15 @@ export default function AddresForm() {
           isRequired
           onChange={(e) => setFormTitle(e.target.value)}
         />
-
+        <Input
+          label="Form URL"
+          type="text"
+          labelPlacement="outside"
+          placeholder="jhonjenwedding"
+          description="This is for the URL of your form"
+          isRequired
+          onChange={(e) => setFormURL(e.target.value)}
+        />
         <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
           Header Image
           <input
