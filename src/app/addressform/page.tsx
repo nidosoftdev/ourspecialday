@@ -1,7 +1,7 @@
 "use client";
 import { Input, NextUIProvider, Textarea } from "@nextui-org/react";
 import { useState } from "react";
-
+import { createEvent } from "../server_layer/event";
 export default function AddresForm() {
   const [formTitle, setFormTitle] = useState("");
   const [formURL, setFormURL] = useState("");
@@ -11,6 +11,21 @@ export default function AddresForm() {
   const [formDescription, setFormDescription] = useState("");
   const [picture, setPicture] = useState<File | null>(null);
 
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const data = {
+      formTitle,
+      formURL,
+      month,
+      day,
+      year,
+      formDescription,
+      picture,
+    };
+    
+    const result = await createEvent(data);
+    console.log(result);
+  };
 
   return (
     <div className="max-w-[600px]">

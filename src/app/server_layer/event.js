@@ -67,8 +67,8 @@ export const deleteEventById = async (id, userId) => {
   };
 
 // Get a single Event by an specific user
-export const getEventById = async(id, userId)=>{
-    const eventquery = query(eventCollectionRef, where("userId", "==", userId));
+export const getEventById = async(id, formURL)=>{
+    const eventquery = query(eventCollectionRef, where("formURL", "==", formURL));
 
     try {
     // Get the documents that match the query
@@ -106,12 +106,31 @@ export const getAllEvent = async (userId) => {
     }
 };
 
+export const getEventUrl = async (formurl)=> {
+    const eventquery = query(eventCollectionRef, where("formURL", "==", formurl));
+    try {
+        // Get the documents that match the query
+        const querySnapshot = await getDocs(eventquery);
+        // Check if there are matching documents
+        if (querySnapshot.empty) {
+            console.log('No matching documents.');
+            return null;
+        }
+        const eventDetail = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        return eventDetail;
+    } catch (error) {
+        console.error("Error getting eventDetail by id:", error);
+        throw error;
+    }
+
+}
+
 // Create new Event
 export const createEvent = async (data) => {
     try {
         // This needs to be set properly, but since we are not sure what is going to be inside it as yet
       const newEvent = await addDoc(eventCollectionRef, data);
-  
+      
       return {"newEvent added with ID: ":  newEvent.id};
 
     } catch (err) {
