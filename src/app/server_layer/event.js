@@ -128,11 +128,27 @@ export const getEventUrl = async (formurl)=> {
 // Create new Event
 export const createEvent = async (data) => {
     try {
-        // This needs to be set properly, but since we are not sure what is going to be inside it as yet
-      const newEvent = await addDoc(eventCollectionRef, data);
-      
-      return {"newEvent added with ID: ":  newEvent.id};
 
+
+      // check if the formURL is already taken
+      const eventquery = query(eventCollectionRef, where("formURL", "==", data.formURL));
+      // Get the documents that match the query
+      const querySnapshot = await getDocs(eventquery);
+  
+      // Check if there are matching documents
+      if (querySnapshot.empty) {
+        
+        // This needs to be set properly, but since we are not sure what is going to be inside it as yet
+        const newEvent = await addDoc(eventCollectionRef, data);
+  
+        return {"newEvent added with ID: ":  newEvent.id};
+  
+      }
+      else{
+        return false
+      }
+       
+      
     } catch (err) {
       console.error("Error adding newEvent: ", err);
       return err;
