@@ -3,7 +3,7 @@ import { Input, Textarea } from "@nextui-org/react";
 import { useState } from "react";
 
 export default function CreateSite() {
-  const [sections, setSections] = useState([]);
+  const [sections, setSections] = useState<[] | any>([]);
   const [sectionTitle, setSectionTitle] = useState("");
   const [content, setContent] = useState("");
   const [sectionImage, setSectionImage] = useState("");
@@ -11,7 +11,7 @@ export default function CreateSite() {
   const [day, setDay] = useState();
   const [year, setYear] = useState();
 
-  const handleMonthChange = (e) => {
+  const handleMonthChange = (e:any) => {
     const value = e.target.value;
     const regex = /^[0-9]{0,2}$/; // Allows up to 2 digits
 
@@ -20,7 +20,7 @@ export default function CreateSite() {
     }
   };
 
-  const handleDayChange = (e) => {
+  const handleDayChange = (e:any) => {
     const value = e.target.value;
     const regex = /^[0-9]{0,2}$/; // Allows up to 2 digits
 
@@ -29,7 +29,7 @@ export default function CreateSite() {
     }
   };
 
-  const handleYearChange = (e) => {
+  const handleYearChange = (e:any) => {
     const value = e.target.value;
     const regex = /^[0-9]{0,4}$/; // Allows up to 2 digits
 
@@ -53,8 +53,8 @@ export default function CreateSite() {
     }
   };
 
-  const removeSection = (id) => {
-    setSections(sections.filter((section) => section.id !== id));
+  const removeSection = (id:any) => {
+    setSections(sections.filter((section:any) => section.id !== id));
   };
   console.log(sections);
   return (
@@ -113,7 +113,7 @@ export default function CreateSite() {
         ""
       )}
       <div className="mt-8 flex flex-col gap-8">
-        {sections.map((section) => (
+        {sections.map((section:any) => (
           <div key={section.id} className="flex flex-col gap-8">
             <Input
               label="Section Title"
@@ -141,7 +141,7 @@ export default function CreateSite() {
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-trash"
+                  className="icon icon-tabler icon-tabler-trash"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"

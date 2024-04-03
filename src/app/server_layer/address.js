@@ -95,9 +95,11 @@ export const getAddressById = async(id, eventId)=>{
 // get all addresses for a specific event
 export const getAllAddress = async (eventId) => {
     try {
+
         const data = await getDocs(addressCollectionRef);
+     
         const addresses = data.docs
-            .filter((doc) => doc.data().eventId === userId) // Filter based on userId
+            .filter((doc) => doc.data().eventId === eventId) // Filter based on userId
             .map((doc) => ({ ...doc.data(), id: doc.id }));
 
         return addresses;

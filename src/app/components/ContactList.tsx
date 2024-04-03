@@ -1,17 +1,34 @@
 "use client";
 import { useState, useEffect } from "react";
+import { getAllAddress } from "../server_layer/address";
 import data from "./data.json";
 
 export default function ContactList() {
   const [filter, setFilter] = useState("");
-  const [filteredContacts, setFilteredContacts] = useState(data);
+  const [filteredContacts, setFilteredContacts] = useState([]);
   const [isPrintView, setIsPrintView] = useState(false);
+
+
   useEffect(() => {
-    const result = data.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()),
-    );
-    setFilteredContacts(result);
+    const getAddresses = async () => {
+      try {
+        console.log("here")
+        const result:any = await getAllAddress("AC8WTOtkY6P4oxtYdXFU");
+        console.log(result);
+        const filteredData = result.filter((contact:any) =>
+        contact.name.toLowerCase().includes(filter.toLowerCase()),
+      );
+        setFilteredContacts(filteredData);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAddresses();
+ 
+
   }, [filter]);
+
+  console.log(filteredContacts)
   const handlePrint = () => {
     setIsPrintView(true);
     window.print();
@@ -26,8 +43,14 @@ export default function ContactList() {
         placeholder="Search by name..."
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
-        className={`mb-4 rounded border p-2 ${isPrintView ? "no-print" : ""}`}
+        className={`mb-4 rounded border p-2 no-print`}
       />
+      <button
+        className="no-print bg-primary mt-8 rounded-md p-4 text-white"
+        onClick={handlePrint}
+      >
+        Download as PDF
+      </button>
       <ul className="flex flex-col gap-4">
         {filteredContacts.map((contact, index) => {
           return (
@@ -101,12 +124,7 @@ export default function ContactList() {
           );
         })}
       </ul>
-      <button
-        className="no-print bg-primary mt-8 rounded-md p-4 text-white"
-        onClick={handlePrint}
-      >
-        Download as PDF
-      </button>
+      
     </div>
   );
 }
