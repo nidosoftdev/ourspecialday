@@ -6,7 +6,7 @@ export default function Dashboard() {
   
 
   const { userData, loading } = useUser();
-
+  console.log(userData)
   
   return (
     <div className="">
