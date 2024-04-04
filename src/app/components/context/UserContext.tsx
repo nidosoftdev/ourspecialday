@@ -3,7 +3,7 @@ import React, { createContext, useContext, ReactNode, useState, useEffect } from
 import { getUserInfo } from '../../server_layer/authentication'; // adjust the import path as necessary
 
 // Assuming User type is correctly imported from Firebase Auth
-import { User } from 'firebase/auth';
+import { User, onAuthStateChanged, getAuth } from 'firebase/auth';
 
 interface UserContextType {
   userData: User | null; // Assuming the userData can be null or a User object
@@ -22,20 +22,26 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [userData, setUserData] = useState<User | null>(null); 
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const user = await getUserInfo();
-        setUserData(user); // This will store the user data or null if not logged in
-      } catch (error) {
-        console.error('Failed to fetch user data:', error);
-        setUserData(null); // Ensure userData is set to null if there's an error fetching
-      } finally {
-        setLoading(false); // Ensure loading is set to false after the attempt to fetch user data
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(
+      auth, 
+      (currentUser) => {
+        // This function is called whenever the user's sign-in state changes.
+        setUserData(currentUser); // currentUser is null if no user is signed in.
+      }, 
+      (error) => {
+        // Optional: Handle errors here.
+        console.error(error);
+      },
+      () => {
+        // Optional: Cleanup or completion logic here.
       }
-    };
+    );
 
-    fetchUserData();
+    // Cleanup subscription on component unmount
+    return () => unsubscribe();
   }, []);
+
   console.log(userData)
   return (
     <UserContext.Provider value={{ userData, loading }}>
