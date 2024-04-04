@@ -43,7 +43,7 @@ export const signInUser= async(userInfo)=>{
         return userstatus
     }
     catch(err){
-        console.log(err)
+        return err
     }
     
 }

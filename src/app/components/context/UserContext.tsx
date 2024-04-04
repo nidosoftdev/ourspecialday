@@ -36,7 +36,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
     fetchUserData();
   }, []);
-
+  console.log(userData)
   return (
     <UserContext.Provider value={{ userData, loading }}>
       {children}

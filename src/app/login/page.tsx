@@ -2,12 +2,16 @@
 import { Checkbox, Input, NextUIProvider } from "@nextui-org/react";
 import { useState,  } from "react";
 import {signup,signInUser} from "../server_layer/authentication"
+import { useRouter } from "next/navigation";
 
-
-
+interface AuthError {
+  code: string;
+  message: string;
+}
+type SignInResponse = AuthError | undefined;
 export default function Login() {
 
-
+  const router = useRouter()
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -15,7 +19,15 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const signin = async()=>{
-    const user = await signInUser({"email":email, "password":password})
+    const user = await signInUser({"email":email, "password":password}) as SignInResponse
+    if(user?.code?.includes("auth/invalid-credential")){
+      alert("Invalid credentials")
+    } else {
+      router.push("/dashboard")
+    }
+    
+
+    
     console.log(user)
   }
 
