@@ -52,7 +52,7 @@ export default function ContactList() {
         Download as PDF
       </button>
       <ul className="flex flex-col gap-4">
-        {filteredContacts.map((contact, index) => {
+        {filteredContacts.map((contact:any, index:any) => {
           return (
             <li
               key={index}

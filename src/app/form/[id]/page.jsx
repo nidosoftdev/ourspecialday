@@ -6,19 +6,19 @@ import { createAddress } from "@/app/server_layer/address"
 import { useRouter, useParams } from "next/navigation"
 import { Input, NextUIProvider, Textarea, Tooltip, Button } from "@nextui-org/react";
 import { useUser } from "@/app/components/context/UserContext";
-interface Event {
-    formTitle: string;
-    formDescription: string;
-    formUrl: string;
-    day: string;
-    month: string;
-    year: string;
-    picture: string;
-    id: string;
-}
+// interface Event {
+//     formTitle: string;
+//     formDescription: string;
+//     formUrl: string;
+//     day: string;
+//     month: string;
+//     year: string;
+//     picture: string;
+//     id: string;
+// }
 
 export default function Form() {
-    const [event, setEvent] = useState({} || undefined);
+    const [event, setEvent] = useState(undefined);
 
     // Address form
     const [name, setName] = useState("");
@@ -36,7 +36,7 @@ export default function Form() {
         const fetchData = async () => {
             try {
                 const result = await getEventUrl(params.id);
-                console.log(result);
+        
                 if (result !== null) {
                     setEvent(result[0]);
                 }
@@ -48,7 +48,7 @@ export default function Form() {
         fetchData();
     }, []); // Don't forget to add your dependencies array here if needed
     
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const data = {
             name,
