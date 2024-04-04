@@ -9,10 +9,11 @@ export default function AddresForm() {
   const [day, setDay] = useState("");
   const [year, setYear] = useState("");
   const [formDescription, setFormDescription] = useState("");
-  const [picture, setPicture] = useState<File | null>(null);
+  const [picture, setPicture] = useState<string | null>(null);
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
+    console.log("submitting");
+    // e.preventDefault();
     const data = {
       formTitle,
       formURL,
@@ -22,9 +23,9 @@ export default function AddresForm() {
       formDescription,
       picture,
     };
-    
+    console.log(data);
     const result = await createEvent(data);
-    console.log(result);
+    console.log(result, "result");
   };
 
   return (
@@ -49,18 +50,15 @@ export default function AddresForm() {
           isRequired
           onChange={(e) => setFormURL(e.target.value)}
         />
-        <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-          Header Image
-          <input
-            className="mt-2 block w-full cursor-pointer rounded-xl bg-[#F5F5F5] p-2 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
-            type="file"
-            onChange={(e) => {
-              if (e.target.files && e.target.files[0]) {
-                setPicture(e.target.files[0]);
-              }
-            }}
-          />
-        </label>
+        
+        <Input
+          label="Image URL"
+          type="text"
+          labelPlacement="outside"
+          placeholder="https://www.example.com/image.jpg"
+          onChange={(e) => setPicture(e.target.value)}
+        />
+      
 
         <div className="flex gap-4">
           <Input

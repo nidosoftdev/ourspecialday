@@ -1,7 +1,7 @@
 import { useUser } from "./context/UserContext";
 import { signOut, getAuth } from "firebase/auth";
 import { useRouter } from "next/navigation";
-
+import '@/app/server_layer/config'
 export default function Component() {
   
   const auth = getAuth();

@@ -25,10 +25,6 @@ export default function Login() {
     } else {
       router.push("/dashboard")
     }
-    
-
-    
-    console.log(user)
   }
 
   return (
