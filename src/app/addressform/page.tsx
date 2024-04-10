@@ -87,7 +87,7 @@ export default function AddresForm() {
           />
         </div>
         <Textarea
-          label="Form Description"
+          label="Our Story"
           placeholder="Write your text here.."
           labelPlacement="outside"
           isRequired

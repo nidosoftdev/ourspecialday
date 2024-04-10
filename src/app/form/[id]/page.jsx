@@ -36,7 +36,7 @@ export default function Form() {
         const fetchData = async () => {
             try {
                 const result = await getEventUrl(params.id);
-        
+                console.log(result);
                 if (result !== null) {
                     setEvent(result[0]);
                 }
@@ -46,7 +46,8 @@ export default function Form() {
         };
     
         fetchData();
-    }, []); // Don't forget to add your dependencies array here if needed
+        console.log(event);
+    }, []); 
     
     const handleSubmit = async (e) => {
         e.preventDefault();

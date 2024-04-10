@@ -3,12 +3,22 @@ import { Checkbox, Input, NextUIProvider } from "@nextui-org/react";
 import { useState,  } from "react";
 import {signup,signInUser} from "../server_layer/authentication"
 import { useRouter } from "next/navigation";
+import type { Viewport } from 'next'
 
 interface AuthError {
   code: string;
   message: string;
 }
 type SignInResponse = AuthError | undefined;
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+
+}
+
 export default function Login() {
 
   const router = useRouter()

@@ -1,5 +1,3 @@
-
-
 import {db, auth} from "./config"
 import {getDoc,addDoc, getDocs, collection, query, where, updateDoc, doc, deleteDoc} from  'firebase/firestore'
 import {
@@ -107,6 +105,7 @@ export const getAllEvent = async (userId) => {
 };
 
 export const getEventUrl = async (formurl)=> {
+    console.log("formurl", formurl);
     const eventquery = query(eventCollectionRef, where("formURL", "==", formurl));
     try {
         // Get the documents that match the query
