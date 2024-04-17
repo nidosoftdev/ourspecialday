@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { NextUIProvider, Input, Checkbox, Button } from "@nextui-org/react";
+import { useRouter } from 'next/navigation';
 import {getAllUsers, getUserByEmail, createUser, updateUserByEmail, deleteUserByEmail} from "../server_layer/user"
 import {signup,signInUser} from "../server_layer/authentication"
 import {createAddress, getAllAddress, getAddressById, deleteAddressById, updateAddressById} from "../server_layer/address"
@@ -9,6 +10,8 @@ import toast from "react-hot-toast";
 import {auth} from "../server_layer/config"
 
 export default function SignUp() {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +28,14 @@ export default function SignUp() {
   const signUp = async (e:React.FormEvent) => {
     e.preventDefault()
     const user = await signup({"email":email, "name":name, "password":password})
+    console.log(user)
+    if(user){
+      toast.success("Account sucessfully create")
+      router.push('/login');
+    }
+    else{
+      toast.error("Fail to create the user. Try Again")
+    }
   }
 
   return (
