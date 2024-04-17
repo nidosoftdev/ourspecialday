@@ -167,7 +167,7 @@ export default function CreateSite() {
         ))}
       </div>
       <button
-        className="bg-primary mt-8 rounded-md p-2 text-white"
+        className="bg-primary mt-8 rounded-md py-2 px-4"
         onClick={() => addSection()}
       >
         Add Section

@@ -22,7 +22,7 @@ export default function RootLayout({
         <UserProvider>
           <Toaster />
           <Navbar />
-          <main className="mx-auto block max-w-[1000px] p-8">{children}</main>
+          <main className="">{children}</main>
         </UserProvider>
       </body>
     </html>

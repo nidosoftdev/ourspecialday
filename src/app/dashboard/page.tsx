@@ -6,10 +6,10 @@ export default function Dashboard() {
   
 
   const { userData, loading } = useUser();
-  console.log(userData)
+
   
   return (
-    <div className="">
+    <div className="container">
       <div>
         <h1 className="text-3xl font-bold">Welcome {userData?.displayName}</h1>
         <div className="mt-8 flex flex-col gap-4 md:flex-row">

@@ -144,7 +144,7 @@ export default function Form() {
                     isRequired
                     onChange={(e) => setAddress(e.target.value)}
                     />
-                    <Button color="primary" onClick={(e)=>handleSubmit(e)}>
+                    <Button color="primary" className="text-black" onClick={(e)=>handleSubmit(e)}>
                         Send address
                     </Button>
                 </section>
