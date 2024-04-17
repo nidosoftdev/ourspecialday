@@ -5,7 +5,7 @@ import data from "./data.json";
 
 export default function ContactList() {
   const [filter, setFilter] = useState("");
-  const [filteredContacts, setFilteredContacts] = useState([]);
+  const [filteredContacts, setFilteredContacts] = useState(data);
   const [isPrintView, setIsPrintView] = useState(false);
 
 
@@ -23,7 +23,7 @@ export default function ContactList() {
         console.log(error);
       }
     }
-    getAddresses();
+    // getAddresses();
  
 
   }, [filter]);
