@@ -40,7 +40,7 @@ export default function AddresForm() {
 
   return (
     <div className="max-w-[600px]">
-      <h1 className="text-3xl font-bold">Create an address for for your Event</h1>
+      <h1 className="text-3xl font-bold">Create an address form for your Event</h1>
       <div className="mt-8 flex flex-col gap-8">
         <Input
           label="Form Title"
