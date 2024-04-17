@@ -101,7 +101,7 @@ export const createUser = async (userData) => {
         email: userData.email,
       });
   
-      return {"User added with ID: ":  newUser.id};
+      return newUser;
 
     } catch (err) {
       console.error("Error adding user: ", err);
