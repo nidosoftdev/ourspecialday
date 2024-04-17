@@ -1,9 +1,9 @@
-"use client";
+"use client"
 import { Input, NextUIProvider, Textarea } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
-import { createEvent } from "../server_layer/event";
+import { createEvent, getEventUrl } from "../server_layer/event";
 
 export default function AddresForm() {
   const [formTitle, setFormTitle] = useState("");
@@ -14,10 +14,21 @@ export default function AddresForm() {
   const [formDescription, setFormDescription] = useState("");
   const [picture, setPicture] = useState<string | null>(null);
   const router = useRouter();
+  const [availability, setAvailability] = useState(true);
+
+  const checkAvailability = async (name: string) => {
+    const result = await getEventUrl(name)
+    setAvailability(!result);
+  };
+
+  const handleInputChange = (e:any) => {
+    const name = e.target.value;
+    setFormURL(name);
+    checkAvailability(name);
+  };
 
   const handleSubmit = async (e: any) => {
     console.log("submitting");
-    // e.preventDefault();
     const data = {
       formTitle,
       formURL,
@@ -51,16 +62,19 @@ export default function AddresForm() {
           isRequired
           onChange={(e) => setFormTitle(e.target.value)}
         />
-        <Input
-          label="Form URL"
-          type="text"
-          labelPlacement="outside"
-          placeholder="jhonjenwedding"
-          description="This is for the URL of your form"
-          isRequired
-          onChange={(e) => setFormURL(e.target.value)}
-        />
-        
+        <div>
+          <Input
+            label="Form URL"
+            type="text"
+            labelPlacement="outside"
+            placeholder="jhonjenwedding"
+            description="This is for the URL of your form"
+            isRequired
+            onChange={handleInputChange}
+            style={{ color: availability ? 'green' : 'red' }}
+          />
+          {!availability && <p style={{ color:'red' }}>Form URL is already taken</p>}
+        </div>
         <Input
           label="Image URL"
           type="text"
@@ -68,8 +82,6 @@ export default function AddresForm() {
           placeholder="https://www.example.com/image.jpg"
           onChange={(e) => setPicture(e.target.value)}
         />
-      
-
         <div className="flex gap-4">
           <Input
             label="Month"
@@ -104,7 +116,7 @@ export default function AddresForm() {
           onChange={(e) => setFormDescription(e.target.value)}
         />
       </div>
-      <button onClick={(e)=>handleSubmit(e)} className="mt-8 w-full rounded-md bg-blue-500 p-2 text-white">
+      <button onClick={handleSubmit} className="mt-8 w-full rounded-md bg-blue-500 p-2 text-white">
         Create Form
       </button>
     </div>

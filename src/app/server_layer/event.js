@@ -113,7 +113,7 @@ export const getEventUrl = async (formurl)=> {
         // Check if there are matching documents
         if (querySnapshot.empty) {
             console.log('No matching documents.');
-            return null;
+            return false;
         }
         const eventDetail = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         return eventDetail;
