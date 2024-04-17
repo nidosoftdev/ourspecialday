@@ -1,7 +1,10 @@
 "use client";
 import { Input, NextUIProvider, Textarea } from "@nextui-org/react";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 import { createEvent } from "../server_layer/event";
+
 export default function AddresForm() {
   const [formTitle, setFormTitle] = useState("");
   const [formURL, setFormURL] = useState("");
@@ -10,6 +13,7 @@ export default function AddresForm() {
   const [year, setYear] = useState("");
   const [formDescription, setFormDescription] = useState("");
   const [picture, setPicture] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleSubmit = async (e: any) => {
     console.log("submitting");
@@ -25,12 +29,18 @@ export default function AddresForm() {
     };
     console.log(data);
     const result = await createEvent(data);
-    console.log(result, "result");
+    if(result){
+      toast.success("Sucessfully Created an Event")
+      router.push("/dashboard")
+    }
+    else{
+      toast.error("Fail to create and Event")
+    }
   };
 
   return (
     <div className="max-w-[600px]">
-      <h1 className="text-3xl font-bold">Create an address form</h1>
+      <h1 className="text-3xl font-bold">Create an address for for your Event</h1>
       <div className="mt-8 flex flex-col gap-8">
         <Input
           label="Form Title"
