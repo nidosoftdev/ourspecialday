@@ -1,6 +1,7 @@
 "use client";
 import { Checkbox, Input, NextUIProvider } from "@nextui-org/react";
 import { useState,  } from "react";
+
 import {signup,signInUser} from "../server_layer/authentication"
 import { useRouter } from "next/navigation";
 import type { Viewport } from 'next'
@@ -98,9 +99,11 @@ export default function Login() {
           {/* If user don't have an account */}
           <p className="text-center text-sm">
             Don't have an account?{" "}
-            <a href="#" className="text-primary">
+            <button className="text-primary"
+            onClick={()=>router.push("/signup")}
+            >
               Sign up
-            </a>
+            </button>
           </p>
           <button
             className="bg-primary rounded-md py-3 text-white"
