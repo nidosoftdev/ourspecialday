@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap");
 @tailwind base;
 @tailwind components;
@@ -11,6 +12,12 @@ a {
     font-family: "Plus Jakarta Sans", sans-serif;
 }
 
+.logo {
+    font-family: "Rouge Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.8rem;
+}
 @media print {
     body {
         font-size: 12pt;

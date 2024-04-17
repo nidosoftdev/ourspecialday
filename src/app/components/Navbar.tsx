@@ -8,8 +8,8 @@ export default function Navbar() {
   const { userData } = useUser();
 
   return (
-    <div className="flex justify-between p-4 font-bold shadow no-print">
-      <a href="./dashboard">Havagala</a>
+    <div className="flex justify-between items-center p-4 font-bold shadow no-print">
+      <a href="./dashboard" className="logo">Havagala</a>
       <div>
         <Login />
       </div>

@@ -94,7 +94,7 @@ export default function AddresForm() {
           onChange={(e) => setFormDescription(e.target.value)}
         />
       </div>
-      <button onClick={(e)=>handleSubmit(e)} className="mt-8 w-full rounded-md bg-blue-500 p-2 text-white">
+      <button onClick={(e)=>handleSubmit(e)} className="mt-8 w-full rounded-md bg-primary p-2">
         Create Form
       </button>
     </div>

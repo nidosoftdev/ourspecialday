@@ -56,7 +56,7 @@ export default function SignUp() {
             </Checkbox>
             <button
               type="submit"
-              className="bg-primary rounded-md py-3 text-white"
+              className="bg-primary rounded-md py-3"
 
               onClick={(e)=>signUp(e)}
 

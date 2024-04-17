@@ -39,7 +39,7 @@ export default function Login() {
 
   return (
     <NextUIProvider>
-      <div className="mx-auto grid max-w-[600px]">
+      <div className="mx-auto grid max-w-[600px] p-8">
         <div>
           <h1 className="text-3xl font-bold">Login</h1>
           <p className="mt-4 text-sm">
@@ -98,12 +98,12 @@ export default function Login() {
           {/* If user don't have an account */}
           <p className="text-center text-sm">
             Don't have an account?{" "}
-            <a href="#" className="text-primary">
+            <a href="/signup" className="text-primary">
               Sign up
             </a>
           </p>
           <button
-            className="bg-primary rounded-md py-3 text-white"
+            className="bg-primary rounded-md py-3"
             onClick={()=>{signin()}}
           >
             Login

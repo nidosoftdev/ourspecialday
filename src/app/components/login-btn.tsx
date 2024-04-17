@@ -12,13 +12,13 @@ export default function Component() {
   if (true) {
     return (
       <div className="flex items-center gap-2">
-        <p className="text-sm font-normal">{userData ? userData.email: "Welcome"}</p>
+        <p className="text-sm font-normal">{userData ? userData.email: ""}</p>
         {userData?  <button
-          className="bg-red-50 p-1 text-sm font-normal"
+          className="bg-red-50 p-1 text-sm font-normal rounded px-2 border border-red-100"
           onClick={()=>{signOut(auth); router.push("/")}}
         >
           Sign out
-        </button>: <a href="/login">Login</a>}
+        </button>: <a href="/login" className="bg-[#FFD687] font-normal text-sm rounded px-2 py-1">Login</a>}
        
       </div>
     );
