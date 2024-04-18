@@ -4,7 +4,7 @@ export default function Home() {
   // const session = getServerSession(authOptions);
 
   const { userData } = useUser();
-  console.log(userData)
+
   return (
     <div>
       <div className="bg-[#F8E8DA]">
