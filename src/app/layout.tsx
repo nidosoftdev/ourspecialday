@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import toast, { Toaster } from 'react-hot-toast';
 import { UserProvider } from "./components/context/UserContext";
+import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,6 +25,8 @@ export default function RootLayout({
           <Navbar />
           <main className="">{children}</main>
         </UserProvider>
+
+        <Footer/>
       </body>
     </html>
   );

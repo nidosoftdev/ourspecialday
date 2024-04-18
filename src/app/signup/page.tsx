@@ -40,7 +40,7 @@ export default function SignUp() {
 
   return (
     <NextUIProvider>
-      <form className="mx-auto grid max-w-[600px] p-8">
+      <form className="mx-auto grid max-w-[600px] min-h-screen p-8">
         <div>
           <h1 className="text-3xl font-bold">Sign Up</h1>
           <p className="mt-4 text-sm">

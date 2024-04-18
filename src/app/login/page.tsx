@@ -40,7 +40,7 @@ export default function Login() {
 
   return (
     <NextUIProvider>
-      <div className="mx-auto grid max-w-[600px] p-8">
+      <div className="mx-auto max-w-[600px] p-8 min-h-screen">
         <div>
           <h1 className="text-3xl font-bold">Login</h1>
           <p className="mt-4 text-sm">
