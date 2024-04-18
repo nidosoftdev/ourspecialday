@@ -1,18 +1,18 @@
 "use client"
 import React from 'react'
 import { Input, NextUIProvider, Textarea } from "@nextui-org/react";
+import {DatePicker} from "@nextui-org/date-picker";
 import { useEffect, useState } from "react";
 import { createEvent, getEventUrl } from "../server_layer/event";
+import toast from 'react-hot-toast';
 
 export default function NewEvent() {
     const [availability, setAvailability] = useState(true);
     const [eventName, setEventName]= useState<null | string>(null)
     const [eventURL, setEventURL] = useState("");
-    const [month, setMonth] = useState("");
-    const [day, setDay] = useState("");
-    const [year, setYear] = useState("");
+    const [eventDate, setEventDate] = useState("");
 
-
+    console.log(eventDate)
     const handleInputChange = (e:any) => {
         const name = e.target.value;
         setEventURL(name);
@@ -22,6 +22,26 @@ export default function NewEvent() {
         const result = await getEventUrl(name)
         setAvailability(!result);
     };
+
+
+ 
+    const handleCreateEvent = async ()=> {
+        const data = {
+            eventName: eventName,
+            eventURL:eventURL,
+            eventDate: eventDate
+        }
+        try {
+            const result = await createEvent(data);
+            if (result) {
+                console.log(result)
+                toast.success("Event created sucessfuly")
+            }
+        } catch(error) {
+            toast.error("There was an error creating the event")
+            console.log(error)
+        }
+    }
 
   return (
     <div className='container min-h-screen'>
@@ -52,34 +72,14 @@ export default function NewEvent() {
             
                 />
                 <div className="flex gap-4">
-                        <Input
-                            label="Month"
-                            type="text"
-                            labelPlacement="outside"
-                            placeholder="MM"
-                            isRequired
-                            onChange={(e) => setMonth(e.target.value)}
-                        />
-                        <Input
-                            label="Day"
-                            type="text"
-                            labelPlacement="outside"
-                            placeholder="DD"
-                            isRequired
-                            onChange={(e) => setDay(e.target.value)}
-                        />
-                        <Input
-                            label="Year"
-                            type="text"
-                            placeholder="YYYY"
-                            labelPlacement="outside"
-                            isRequired
-                            onChange={(e) => setYear(e.target.value)}
-                        />
+                    <DatePicker label="Event date" className="w-full"
+                    labelPlacement='outside' onChange={(e)=>setEventDate(e.toString())}/>
                 </div>
 
                 
-                <button className="mt-8 w-full rounded-md bg-primary p-2">
+                <button className="mt-8 w-full rounded-md bg-primary p-2"
+                    onClick={handleCreateEvent}
+                >
                     Create Event
                 </button>
             </div>

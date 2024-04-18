@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/date-picker": "^2.0.4",
     "@nextui-org/react": "^2.2.9",
+    "@nextui-org/system": "^2.1.1",
+    "@nextui-org/theme": "^2.2.1",
     "@prisma/client": "^5.9.1",
     "bcrypt": "^5.1.1",
     "firebase": "^10.8.0",

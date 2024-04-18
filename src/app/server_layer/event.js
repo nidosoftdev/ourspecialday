@@ -104,9 +104,9 @@ export const getAllEvent = async (userId) => {
     }
 };
 
-export const getEventUrl = async (formurl)=> {
-    console.log("formurl", formurl);
-    const eventquery = query(eventCollectionRef, where("formURL", "==", formurl));
+export const getEventUrl = async (eventURL)=> {
+
+    const eventquery = query(eventCollectionRef, where("eventURL", "==", eventURL));
     try {
         // Get the documents that match the query
         const querySnapshot = await getDocs(eventquery);
@@ -130,7 +130,7 @@ export const createEvent = async (data) => {
 
 
       // check if the formURL is already taken
-      const eventquery = query(eventCollectionRef, where("formURL", "==", data.formURL));
+      const eventquery = query(eventCollectionRef, where("eventURL", "==", data.eventURL));
       // Get the documents that match the query
       const querySnapshot = await getDocs(eventquery);
   
@@ -146,7 +146,7 @@ export const createEvent = async (data) => {
       else{
         return false
       }
-       
+
       
     } catch (err) {
       console.error("Error adding newEvent: ", err);
