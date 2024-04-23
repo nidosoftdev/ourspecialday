@@ -33,7 +33,7 @@ export default function Dashboard() {
           </a>
 
           <a
-              href="./addressbook"
+              href="./events"
               className="flex w-full cursor-pointer gap-4 rounded-md border p-4 hover:bg-zinc-50"
             >
               <div>

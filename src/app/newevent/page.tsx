@@ -4,6 +4,7 @@ import { Input, NextUIProvider, Textarea } from "@nextui-org/react";
 import {DatePicker} from "@nextui-org/date-picker";
 import { useEffect, useState } from "react";
 import { createEvent, getEventUrl } from "../server_layer/event";
+import { useUser } from "../components/context/UserContext";
 import toast from 'react-hot-toast';
 
 export default function NewEvent() {
@@ -12,7 +13,8 @@ export default function NewEvent() {
     const [eventURL, setEventURL] = useState("");
     const [eventDate, setEventDate] = useState("");
 
-    console.log(eventDate)
+    const {userData} = useUser();
+    console.log(userData?.uid)
     const handleInputChange = (e:any) => {
         const name = e.target.value;
         setEventURL(name);
@@ -29,7 +31,8 @@ export default function NewEvent() {
         const data = {
             eventName: eventName,
             eventURL:eventURL,
-            eventDate: eventDate
+            eventDate: eventDate,
+            userId: userData?.uid
         }
         try {
             const result = await createEvent(data);
@@ -48,7 +51,7 @@ export default function NewEvent() {
         <div className='max-w-xl mt-8'>
             
             
-                <h1 className="text-3xl font-bold">Create an new Event</h1>
+                <h1 className="text-3xl font-bold">Create a new Event</h1>
                 <div className="mt-8 flex flex-col gap-8">
                     <Input
                     label="Event Name"
