@@ -21,7 +21,7 @@ export const viewport: Viewport = {
 }
 
 export default function Login() {
-  console.log(process.env.NEXT_PUBLIC_API_KEY)
+ 
   const router = useRouter()
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
