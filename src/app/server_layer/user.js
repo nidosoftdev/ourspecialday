@@ -95,6 +95,7 @@ export const updateUserByEmail = async (updatedData) => {
 // Create new user
 export const createUser = async (userData) => {
     try {
+      console.log("attempting to create user", userCollectionRef)
       const newUser = await addDoc(userCollectionRef, {
         uid: userData.uid,
         name: userData.name,
