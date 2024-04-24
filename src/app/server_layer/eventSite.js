@@ -110,7 +110,7 @@ export const createEventSite = async (data) => {
     try {
         // This needs to be set properly, but since we are not sure what is going to be inside it as yet
       const newEventSite = await addDoc(eventSiteCollectionRef, data);
-  
+
       return {"newEventSite added with ID: ":  newEventSite.id};
 
     } catch (err) {
