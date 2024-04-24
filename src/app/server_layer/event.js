@@ -65,8 +65,8 @@ export const deleteEventById = async (id, userId) => {
   };
 
 // Get a single Event by an specific user
-export const getEventById = async(id, formURL)=>{
-    const eventquery = query(eventCollectionRef, where("formURL", "==", formURL));
+export const getEventById = async(eventURL)=>{
+    const eventquery = query(eventCollectionRef, where("eventURL", "==", eventURL));
 
     try {
     // Get the documents that match the query
@@ -77,9 +77,7 @@ export const getEventById = async(id, formURL)=>{
       console.log('No matching documents.');
       return null;
     }
-    const eventDetail = querySnapshot.docs
-    .filter(doc => doc.id == id)
-    .map((doc)=>({...doc.data(), id:doc.id}));
+    const eventDetail = querySnapshot.docs.map((doc)=>({...doc.data(), id:doc.id}));
     
     return eventDetail[0];
 

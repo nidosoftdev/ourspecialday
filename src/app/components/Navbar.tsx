@@ -9,7 +9,7 @@ export default function Navbar() {
 
   return (
     <div className="flex justify-between items-center p-4 font-bold shadow no-print">
-      <a href="./dashboard" className="logo">Havagala</a>
+      <a href="/dashboard" className="logo">Havagala</a>
       <div>
         <Login />
       </div>

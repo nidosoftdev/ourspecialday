@@ -42,7 +42,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  console.log(userData)
+
   return (
     <UserContext.Provider value={{ userData, loading }}>
       {children}

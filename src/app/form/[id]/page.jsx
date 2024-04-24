@@ -35,10 +35,11 @@ export default function Form() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await getEventUrl(params.id);
+                console.log(params.id)
+                const result = await getEventById(params.id);
                 console.log(result);
                 if (result !== null) {
-                    setEvent(result[0]);
+                    setEvent(result);
                 }
             } catch (error) {
                 console.log(error);
@@ -99,7 +100,7 @@ export default function Form() {
         );
 
     return (
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col md:flex-row gap-8 container">
             <section className="w-1/2 h-[300px] md:h-[700px] grid place-items-center rounded-md bg-amber-100 relative">
 
                 <h1 className="text-3xl md:text-6xl md:hidden font-bold absolute z-50 bg-white p-2">{event?.formTitle}</h1>
@@ -109,7 +110,9 @@ export default function Form() {
             <div className="w-1/2">
                 <section>
                     <h1 className="text-6xl text-center hidden md:block font-bold z-50 bg-white p-2">{event?.formTitle}</h1>
-                    <p className="z-50 text-center w-full mt-8 text-xl font-bold">{event?.month} {event?.day}, {event?.year}</p>
+                    <p className="z-50 text-center w-full mt-8 text-xl font-bold">{
+                            `${new Intl.DateTimeFormat('en-US', {month: 'long', day: "numeric"}).format(new Date(event.eventDate))}`
+                            }</p>
                     <p className="z-50 text-center w-full">{countdown}</p>
                     
                 </section>

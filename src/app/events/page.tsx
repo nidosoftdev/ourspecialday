@@ -2,12 +2,13 @@
 import { useEffect, useState } from 'react'
 import { getAllEvent } from '../server_layer/event'
 import { useUser } from "../components/context/UserContext";
+import {Breadcrumbs, BreadcrumbItem, Skeleton} from "@nextui-org/react"; 
 
 export default function page() {
   const [events, setEvents] = useState<any>([])
 
   const { userData } = useUser()
-  console.log(userData)
+
   useEffect(()=> {
     const fetchEvents = async ()=> {
       const result = await getAllEvent(userData?.uid)
@@ -16,9 +17,15 @@ export default function page() {
     fetchEvents()
   
   }, [userData])
-  console.log(events)
+
   return (
-    <div className='container min-h-screen'>
+    <div className='container min-h-screen mt-8'>
+        <div className='mb-8'>
+          <Breadcrumbs variant={"solid"}>
+            <BreadcrumbItem href='/dashboard'>Dashboard</BreadcrumbItem>
+            <BreadcrumbItem>Events</BreadcrumbItem>
+          </Breadcrumbs>
+        </div>
         <div>
           <h1 className='text-3xl font-bold'>Manage Events</h1>
           <p className='text-xs text-slate-500 mt-4'>Select an event to edit or delet it</p>
@@ -34,10 +41,10 @@ export default function page() {
                     >
                         <div className='bg-violet-200 text-sm md:text-md h-ful py-3 px-6 rounded-sm grid place-items-center w-1/5'>
                           <h2>{
-                            `${new Intl.DateTimeFormat('en-US', {month: 'long', day: "numeric"}).format(new Date(event.eventDate))}`
+                            `${new Intl.DateTimeFormat('en-US', {month: 'long', day: "numeric"}).format(new Date(`${event.eventDate}T00:00`))}`
                             }</h2>
                             <h2>{
-                            `${new Intl.DateTimeFormat('en-US', { year: "numeric"}).format(new Date(event.eventDate))}`
+                            `${new Intl.DateTimeFormat('en-US', { year: "numeric"}).format(new Date(`${event.eventDate}T00:00`))}`
                             }</h2>
                         </div>
                         <p className='text-md md:text-xl'>{event.eventName}</p>

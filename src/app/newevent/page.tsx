@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { Input, NextUIProvider, Textarea } from "@nextui-org/react";
+
 import {DatePicker} from "@nextui-org/date-picker";
 import { useEffect, useState } from "react";
 import { createEvent, getEventUrl } from "../server_layer/event";
@@ -14,7 +15,7 @@ export default function NewEvent() {
     const [eventDate, setEventDate] = useState("");
 
     const {userData} = useUser();
-    console.log(userData?.uid)
+
     const handleInputChange = (e:any) => {
         const name = e.target.value;
         setEventURL(name);
@@ -37,7 +38,7 @@ export default function NewEvent() {
         try {
             const result = await createEvent(data);
             if (result) {
-                console.log(result)
+      
                 toast.success("Event created sucessfuly")
             }
         } catch(error) {
@@ -74,9 +75,9 @@ export default function NewEvent() {
                     onChange={handleInputChange}
             
                 />
-                <div className="flex gap-4">
-                    <DatePicker label="Event date" className="w-full"
-                    labelPlacement='outside' onChange={(e)=>setEventDate(e.toString())}/>
+                <div className="gap-4">
+                    <DatePicker label="Event date" 
+                    labelPlacement='outside' className="w-fit" onChange={(e)=>setEventDate(e.toString())}/>
                 </div>
 
                 
