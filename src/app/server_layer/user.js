@@ -100,7 +100,7 @@ export const createUser = async (userData) => {
         name: userData.name,
         email: userData.email,
       });
-  
+      console.log("Create user", newUser)
       return newUser;
 
     } catch (err) {

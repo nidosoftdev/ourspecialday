@@ -5,20 +5,20 @@ import {createUser} from "./user"
 // Create user with Email and Password
 export const signup = async(userInfo)=>{
     try
-    {
+    {   console.log("here 1")
         // Create the email and password auth
         const authUserCredential = await createUserWithEmailAndPassword(
             auth,
             userInfo.email,
             userInfo.password
         );
-        
+        console.log("here 1")
         const authUser = authUserCredential.user;
          // Update the user's profile to set their display name
          await updateProfile(authUser, {
             displayName: userInfo.name, // Assuming userInfo.name is the desired display name
         });
-
+        console.log("here 1")
         // then create user
         const user = await createUser({
             uid: authUser.uid,
