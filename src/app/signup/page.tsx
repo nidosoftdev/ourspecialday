@@ -28,7 +28,6 @@ export default function SignUp() {
   const signUp = async (e:React.FormEvent) => {
     e.preventDefault()
     const user = await signup({"email":email, "name":name, "password":password})
-    console.log(user)
     if(user){
       toast.success("Account sucessfully create")
       router.push('/login');
