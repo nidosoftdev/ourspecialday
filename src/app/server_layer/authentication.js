@@ -25,7 +25,7 @@ export const signup = async(userInfo)=>{
             email: userInfo.email,
             name: userInfo.name
         });
-        
+        console.log(user)
         return user
 
     }
