@@ -176,3 +176,23 @@ export const createEventForm = async (data) => {
     return err;
   }
 };
+
+export const getEventForm = async (eventURL)=> {
+  
+    const eventquery = query(eventFormCollectionRef, where("eventURL", "==", eventURL));
+    try {
+        // Get the documents that match the query
+        const querySnapshot = await getDocs(eventquery);
+        // Check if there are matching documents
+        if (querySnapshot.empty) {
+            console.log('No matching documents.');
+            return false;
+        }
+        const eventDetail = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        return eventDetail;
+    } catch (error) {
+        console.error("Error getting eventDetail by id:", error);
+        throw error;
+    }
+  
+  }
