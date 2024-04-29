@@ -17,7 +17,7 @@ export default function page() {
     fetchEvents()
   
   }, [userData])
-
+  console.log(events)
   return (
     <div className='container min-h-screen mt-8'>
         <div className='mb-8'>

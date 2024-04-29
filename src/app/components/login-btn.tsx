@@ -12,7 +12,6 @@ export default function Component() {
   if (true) {
     return (
       <div className="flex items-center gap-2">
-        <a href="/dashboard" className="text-sm font-normal">{userData ? userData.email: ""}</a>
         {userData?  <button
           className="bg-red-50 p-1 text-sm font-normal rounded px-2 border border-red-100"
           onClick={()=>{signOut(auth); router.push("/")}}

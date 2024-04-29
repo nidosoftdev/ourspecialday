@@ -3,23 +3,25 @@ import { Input, Checkbox, Textarea } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from 'next/navigation';
 import {DatePicker} from "@nextui-org/date-picker";
+import {TimeInput} from "@nextui-org/date-input";
 import { toast } from 'react-hot-toast';
-import { createEvent, getEventById } from "../../server_layer/event";
+import { createEventForm, getEventById } from "../../server_layer/event";
 import {Event} from "../../components/interfaces/interfaces"
 import {Breadcrumbs, BreadcrumbItem, Skeleton} from "@nextui-org/react"; 
+import {parseDate, getLocalTimeZone, parseTime} from "@internationalized/date";
 
 export default function AddresForm() {
 
   const [event, setEvent] = useState<Event | any>(null);
   const [formTitle, setFormTitle] = useState<any>("");
-  const [sameTitle, setSameTitle] = useState(true);
-  const [eventDate, setEventDate] = useState("");
+  const [eventFormDate, setEventFormDate] = useState<any>("");
+  const [eventFormTime, setEventFormTime] = useState<any>("");
   const [formDescription, setFormDescription] = useState("");
   const [picture, setPicture] = useState<string | null>(null);
 
   const params = useParams();
   const router = useRouter();
-
+  
   useEffect(()=> {
     if (params.id === null) {
       throw new Error("Event ID is missing.");
@@ -29,6 +31,8 @@ export default function AddresForm() {
       const result: Event | any = await getEventById(params.id)
       setEvent(result)
       setFormTitle(result?.eventName)
+      setEventFormDate(result?.eventDate)
+      setEventFormTime(result?.eventTime)
     }
     fetchEvent()
   }
@@ -38,19 +42,21 @@ export default function AddresForm() {
 
     const data = {
       formTitle,
-      eventDate,
+      eventFormDate,
+      eventFormTime,
       formDescription,
       picture,
+      eventURL: event?.eventURL,
     };
     console.log(data);
-    const result = await createEvent(data);
-    if(result){
-      toast.success("Sucessfully Created an Event")
-      router.push("/dashboard")
-    }
-    else{
-      toast.error("Fail to create and Event")
-    }
+    const result = await createEventForm(data);
+    // if(result){
+    //   toast.success("Sucessfully Created an Event")
+    //   router.push("/dashboard")
+    // }
+    // else{
+    //   toast.error("Fail to create and Event")
+    // }
   };
 
 
@@ -80,37 +86,17 @@ export default function AddresForm() {
           <h1 className="text-3xl font-bold">Address form for: <span>{event?.eventName}</span></h1>
           <div className="mt-8 flex flex-col gap-8">
             <div>
-            {event?.eventName !== undefined ? (
-              sameTitle ? 
-                <Input
-                  label="Form Title Event"
-                  type="text"
-                  labelPlacement="outside"
-                  value={formTitle}
-                  isRequired
-                  isDisabled
-                  
-                />
-              : 
+          
                 <Input
                   label="Form Title"
                   type="text"
                   labelPlacement="outside"
                   isRequired
+                  value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
                 />
               
-            ) : "Loading..."
-            }
-            <Checkbox
-              defaultSelected={sameTitle}
-              isSelected={sameTitle}
-              onValueChange={(value) => {setSameTitle(value); setFormTitle(event?.eventName)}}
-              className="mt-1 text-slate-500"
-              size="sm"
-            >
-              Use same title as event's name
-            </Checkbox>
+           
 
             </div>
           
@@ -122,10 +108,22 @@ export default function AddresForm() {
               onChange={(e) => setPicture(e.target.value)}
             />
             <div className="flex gap-4">
-            <div className="flex gap-4">
-                      <DatePicker label="Event date" className="w-full"
-                      labelPlacement='outside' onChange={(e)=>setEventDate(e.toString())}/>
-                  </div>
+            <div>
+                <div className="flex gap-4">
+                  <DatePicker label="Event date" className="w-full"
+                  defaultValue={parseDate(eventFormDate)}
+                  showMonthAndYearPickers
+                  labelPlacement='outside' onChange={(e)=>setEventFormDate(e.toString())}/>
+                  <TimeInput 
+                          label="Event Time" 
+                          labelPlacement="outside" 
+                          className="w-fit"
+                          defaultValue={parseTime(eventFormTime)}
+                          onChange={(e)=>setEventFormTime(e.toString())}
+                  />
+                </div>
+          
+            </div>
             </div>
             <Textarea
               label="Message"

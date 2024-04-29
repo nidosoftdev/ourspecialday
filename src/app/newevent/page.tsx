@@ -1,20 +1,23 @@
 "use client"
 import React from 'react'
-import { Input, NextUIProvider, Textarea } from "@nextui-org/react";
-
+import { Input } from "@nextui-org/react";
+import {TimeInput} from "@nextui-org/date-input";
 import {DatePicker} from "@nextui-org/date-picker";
 import { useEffect, useState } from "react";
 import { createEvent, getEventUrl } from "../server_layer/event";
 import { useUser } from "../components/context/UserContext";
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 export default function NewEvent() {
     const [availability, setAvailability] = useState(true);
     const [eventName, setEventName]= useState<null | string>(null)
     const [eventURL, setEventURL] = useState("");
     const [eventDate, setEventDate] = useState("");
+    const [eventTime, setEventTime] = useState("");
 
     const {userData} = useUser();
+    const router = useRouter();
 
     const handleInputChange = (e:any) => {
         const name = e.target.value;
@@ -33,6 +36,7 @@ export default function NewEvent() {
             eventName: eventName,
             eventURL:eventURL,
             eventDate: eventDate,
+            eventTime: eventTime,
             userId: userData?.uid
         }
         try {
@@ -40,6 +44,7 @@ export default function NewEvent() {
             if (result) {
       
                 toast.success("Event created sucessfuly")
+                router.push("/events")
             }
         } catch(error) {
             toast.error("There was an error creating the event")
@@ -52,7 +57,7 @@ export default function NewEvent() {
         <div className='max-w-xl mt-8'>
             
             
-                <h1 className="text-3xl font-bold">Create a new Event</h1>
+                <h1 className="text-3xl font-bold">Create a new event</h1>
                 <div className="mt-8 flex flex-col gap-8">
                     <Input
                     label="Event Name"
@@ -75,9 +80,16 @@ export default function NewEvent() {
                     onChange={handleInputChange}
             
                 />
-                <div className="gap-4">
+                <div className="gap-4 flex">
                     <DatePicker label="Event date" 
+                    showMonthAndYearPickers
                     labelPlacement='outside' className="w-fit" onChange={(e)=>setEventDate(e.toString())}/>
+                    <TimeInput 
+                        label="Event Time" 
+                        labelPlacement="outside" 
+                        className="w-fit"
+                        onChange={(e)=>setEventTime(e.toString())}
+                    />
                 </div>
 
                 

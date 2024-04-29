@@ -7,6 +7,7 @@ import {
 
 // Collection reference
 const eventCollectionRef = collection(db,"event")
+const eventFormCollectionRef = collection(db,"eventForm")
 
 
 // Update a specific Event by id and userId
@@ -150,4 +151,28 @@ export const createEvent = async (data) => {
       console.error("Error adding newEvent: ", err);
       return err;
     }
+};
+
+
+
+// Create new Event
+export const createEventForm = async (data) => {
+  try {
+
+
+  
+
+
+      
+      // This needs to be set properly, but since we are not sure what is going to be inside it as yet
+      const newEvent = await addDoc(eventFormCollectionRef, data);
+
+      return {"newEvent added with ID: ":  newEvent.id};
+
+ 
+    
+  } catch (err) {
+    console.error("Error adding newEvent: ", err);
+    return err;
+  }
 };

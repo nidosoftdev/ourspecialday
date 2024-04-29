@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/date-input": "^2.0.3",
     "@nextui-org/date-picker": "^2.0.4",
     "@nextui-org/react": "^2.2.9",
     "@nextui-org/system": "^2.1.1",

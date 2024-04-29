@@ -16,7 +16,7 @@ export default function Dashboard() {
         <div className="mt-8 flex flex-col gap-4 md:flex-row">
           <a
             href="./newevent"
-            className="flex items-center w-full cursor-pointer gap-4 rounded-md border p-4 hover:bg-zinc-50"
+            className="flex items-center w-full cursor-pointer gap-4 rounded-md shadow p-4 bg-white"
           >
             <div>
             <Image src="/calendar-icon.png" width={40} height={40} alt="icon of a calendar"/>
@@ -27,7 +27,7 @@ export default function Dashboard() {
 
           <a
               href="./events"
-              className="flex items-center w-full cursor-pointer gap-4 rounded-md border p-4 hover:bg-zinc-50"
+              className="flex items-center w-full cursor-pointer gap-4 rounded-md shadow p-4 bg-white"
             >
               <div>
               <Image src="/edit.png" width={40} height={40} alt="icon of a calendar"/>

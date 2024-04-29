@@ -6,16 +6,6 @@ import { createAddress } from "@/app/server_layer/address"
 import { useRouter, useParams } from "next/navigation"
 import { Input, NextUIProvider, Textarea, Tooltip, Button } from "@nextui-org/react";
 import { useUser } from "@/app/components/context/UserContext";
-// interface Event {
-//     formTitle: string;
-//     formDescription: string;
-//     formUrl: string;
-//     day: string;
-//     month: string;
-//     year: string;
-//     picture: string;
-//     id: string;
-// }
 
 export default function Form() {
     const [event, setEvent] = useState(undefined);
@@ -110,9 +100,9 @@ export default function Form() {
             <div className="w-1/2">
                 <section>
                     <h1 className="text-6xl text-center hidden md:block font-bold z-50 bg-white p-2">{event?.formTitle}</h1>
-                    <p className="z-50 text-center w-full mt-8 text-xl font-bold">{
-                            `${new Intl.DateTimeFormat('en-US', {month: 'long', day: "numeric"}).format(new Date(event.eventDate))}`
-                            }</p>
+                    {/* <p className="z-50 text-center w-full mt-8 text-xl font-bold">{
+                            `${new Intl.DateTimeFormat('en-US', {month: 'long', day: "numeric"}).format(new Date(event?.eventDate))}`
+                            }</p> */}
                     <p className="z-50 text-center w-full">{countdown}</p>
                     
                 </section>
