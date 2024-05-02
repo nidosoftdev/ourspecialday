@@ -160,16 +160,10 @@ export const createEventForm = async (data:any) => {
   try {
 
 
-  
-
-
-      
       // This needs to be set properly, but since we are not sure what is going to be inside it as yet
       const newEvent = await addDoc(eventFormCollectionRef, data);
 
       return {"newEvent added with ID: ":  newEvent.id};
-
- 
     
   } catch (err) {
     console.error("Error adding newEvent: ", err);

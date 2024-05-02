@@ -7,10 +7,13 @@ import { getEventById } from '../../server_layer/event'
 import { Event } from '../../components/interfaces/interfaces'
 import { getEventForm } from '../../server_layer/event';
 import Image from 'next/image'
+import { CustomSpinner } from '@/app/components/customSpinner';
 export default function page() {
   
   const [event, setEvent] = useState<Event | any>(undefined)
   const [form, setForm] = useState<any>(undefined)
+  const [loading, setloading] = useState(true);
+  
   const router = useRouter()
   const params = useParams()
 
@@ -20,6 +23,7 @@ export default function page() {
     const fetchEvent = async ()=> {
       const result = await getEventById(eventURL)
       setEvent(result)
+     
     }
     fetchEvent()
 
@@ -27,6 +31,7 @@ export default function page() {
       const result = await getEventForm(eventURL)
       if (result) {
         setForm(result)
+        setloading(false)
       
       }
     }
@@ -45,45 +50,50 @@ export default function page() {
           <BreadcrumbItem>{event?.eventName}</BreadcrumbItem>
         </Breadcrumbs>
       </div>
-      <div>
-        <h1 className='text-3xl font-bold'>{event?.eventName}</h1>
-        {event?.eventDate&&
-        <h2>{
-          `${new Intl.DateTimeFormat('en-US', {month: 'long', day: "numeric", year:"numeric"}).format(new Date(`${event?.eventDate}T00:00`))}`
-        }</h2>
-        }
-      </div>
-      <div>
-        {form ?
-         <a href={`/newform/${event?.eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
-                    border rounded-md shadow-sm 
-                   hover:bg-zinc-50 mt-8">
-          <Image src="/form.png" width={40} height={40} alt="icon of a calendar"/>
+      
+      {loading?<CustomSpinner/>:
+      <>
+     
+          <div>
+            <h1 className='text-3xl font-bold'>{event?.eventName}</h1>
+            {event?.eventDate&&
+            <h2>{
+              `${new Intl.DateTimeFormat('en-US', {month: 'long', day: "numeric", year:"numeric"}).format(new Date(`${event?.eventDate}T00:00`))}`
+            }</h2>
+            }
+          </div>
+          <div>
+            {form ?
+            <a href={`/newform/${event?.eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
+                        border rounded-md shadow-sm 
+                      hover:bg-zinc-50 mt-8">
+              <Image src="/form.png" width={40} height={40} alt="icon of a calendar"/>
 
-          Edit Address Form
-        </a>:
-        <a href={`/newform/${event?.eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
-        border rounded-md shadow-sm 
-       hover:bg-zinc-50 mt-8">
-        <Image src="/form.png" width={40} height={40} alt="icon of a calendar"/>
+              Edit Address Form
+            </a>:
+            <a href={`/newform/${event?.eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
+            border rounded-md shadow-sm 
+          hover:bg-zinc-50 mt-8">
+            <Image src="/form.png" width={40} height={40} alt="icon of a calendar"/>
 
-        Create Address Form
-        </a>
-        }
-        <a href="" className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
-                    border rounded-md shadow-sm 
-                   hover:bg-zinc-50 mt-4">
-                    <Image src="/site.png" width={40} height={40} alt="icon of a calendar"/>
-          Create Event site
-        </a>
-        <a href={`/addressbook/${eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
-                    border rounded-md shadow-sm 
-                   hover:bg-zinc-50 mt-4">
-                    <Image src="/site.png" width={40} height={40} alt="icon of a calendar"/>
-          Check your addresess
-        </a>
-      </div>
-
+            Create Address Form
+            </a>
+            }
+            <a href="" className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
+                        border rounded-md shadow-sm 
+                      hover:bg-zinc-50 mt-4">
+                        <Image src="/site.png" width={40} height={40} alt="icon of a calendar"/>
+              Create Event site
+            </a>
+            <a href={`/addressbook/${eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
+                        border rounded-md shadow-sm 
+                      hover:bg-zinc-50 mt-4">
+                        <Image src="/site.png" width={40} height={40} alt="icon of a calendar"/>
+              Check your addresess
+            </a>
+          </div>
+      </>
+      }
     </div>
   )
 }
