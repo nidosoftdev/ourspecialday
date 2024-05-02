@@ -11,7 +11,7 @@ const eventFormCollectionRef = collection(db,"eventForm")
 
 
 // Update a specific Event by id and userId
-export const updateEventById = async (id, updatedData, userId) => {
+export const updateEventById = async (id:string, updatedData:any, userId:any) => {
     // Create a query to find the Event by id and userId
     const eventQuery = query(eventCollectionRef, where("id", "==", id), where("userId", "==", userId));
 
@@ -41,10 +41,10 @@ export const updateEventById = async (id, updatedData, userId) => {
 };
 
 // Function to delete an Event based on a event
-export const deleteEventById = async (id, userId) => {
+export const deleteEventById = async (id:string, userId:string) => {
     try {
       // Fetch initial user data before attempting to delete
-      const event = await getEventById(id,userId);
+      const event = await getEventById(id);
   
       if (!event) {
         console.log("event not found.");
@@ -66,7 +66,7 @@ export const deleteEventById = async (id, userId) => {
   };
 
 // Get a single Event by an specific user
-export const getEventById = async(eventURL)=>{
+export const getEventById = async(eventURL:any)=>{
     const eventquery = query(eventCollectionRef, where("eventURL", "==", eventURL));
 
     try {
@@ -89,7 +89,7 @@ export const getEventById = async(eventURL)=>{
 }
 
 // get all events for a specific user
-export const getAllEvent = async (userId) => {
+export const getAllEvent = async (userId:any) => {
     try {
         const data = await getDocs(eventCollectionRef);
         const events = data.docs
@@ -103,7 +103,7 @@ export const getAllEvent = async (userId) => {
     }
 };
 
-export const getEventUrl = async (eventURL)=> {
+export const getEventUrl = async (eventURL:any)=> {
 
     const eventquery = query(eventCollectionRef, where("eventURL", "==", eventURL));
     try {
@@ -124,7 +124,7 @@ export const getEventUrl = async (eventURL)=> {
 }
 
 // Create new Event
-export const createEvent = async (data) => {
+export const createEvent = async (data:any) => {
     try {
 
 
@@ -156,7 +156,7 @@ export const createEvent = async (data) => {
 
 
 // Create new Event
-export const createEventForm = async (data) => {
+export const createEventForm = async (data:any) => {
   try {
 
 
@@ -177,7 +177,7 @@ export const createEventForm = async (data) => {
   }
 };
 
-export const getEventForm = async (eventURL)=> {
+export const getEventForm = async (eventURL:string)=> {
   
     const eventquery = query(eventFormCollectionRef, where("eventURL", "==", eventURL));
     try {
@@ -189,10 +189,10 @@ export const getEventForm = async (eventURL)=> {
             return false;
         }
         const eventDetail = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-        return eventDetail;
+        return eventDetail[0];
     } catch (error) {
         console.error("Error getting eventDetail by id:", error);
         throw error;
     }
   
-  }
+}

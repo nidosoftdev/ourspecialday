@@ -1,10 +1,10 @@
 "use client";
 import { Checkbox, Input, NextUIProvider } from "@nextui-org/react";
 import { useState,  } from "react";
-
 import {signup,signInUser} from "../server_layer/authentication"
 import { useRouter } from "next/navigation";
 import type { Viewport } from 'next'
+import toast from "react-hot-toast";
 
 interface AuthError {
   code: string;
@@ -32,7 +32,7 @@ export default function Login() {
   const signin = async()=>{
     const user = await signInUser({"email":email, "password":password}) as SignInResponse
     if(user?.code?.includes("auth/invalid-credential")){
-      alert("Invalid credentials")
+      toast.error("Invalid credentials")
     } else {
       router.push("/dashboard")
     }

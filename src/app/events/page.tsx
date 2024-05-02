@@ -39,7 +39,7 @@ export default function page() {
                     border rounded-md shadow-sm 
                    hover:bg-zinc-50"
                     >
-                        <div className='bg-violet-200 text-sm md:text-md h-ful py-3 px-6 rounded-sm grid place-items-center w-1/5'>
+                        <div className='bg-violet-200 text-center text-sm md:text-md h-ful py-3 px-6 rounded-sm grid place-items-center w-1/5'>
                           <h2>{
                             `${new Intl.DateTimeFormat('en-US', {month: 'long', day: "numeric"}).format(new Date(`${event.eventDate}T00:00`))}`
                             }</h2>

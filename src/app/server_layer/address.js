@@ -93,14 +93,15 @@ export const getAddressById = async(id, eventId)=>{
 }
 
 // get all addresses for a specific event
-export const getAllAddress = async (eventId) => {
-    try {
+export const getAllAddress = async (eventURL) => {
+  const eventquery = query(addressCollectionRef, where("eventUrl", "==", eventURL));
 
-        const data = await getDocs(addressCollectionRef);
+    try {
+        console.log(eventURL);
+        const querySnapshot = await getDocs(eventquery);
      
-        const addresses = data.docs
-            .filter((doc) => doc.data().eventId === eventId) // Filter based on userId
-            .map((doc) => ({ ...doc.data(), id: doc.id }));
+        const addresses = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        return addresses;
 
         return addresses;
     } catch (err) {

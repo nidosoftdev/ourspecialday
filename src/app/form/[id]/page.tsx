@@ -2,39 +2,47 @@
 import { getEventById, getEventForm } from "@/app/server_layer/event"
 import { useEffect, useState } from "react"
 import Image from 'next/image'
+import { toast } from 'react-hot-toast'
 import { createAddress } from "@/app/server_layer/address"
 import { useRouter, useParams } from "next/navigation"
 import { Input, NextUIProvider, Textarea, Tooltip, Button } from "@nextui-org/react";
 import { useUser } from "@/app/components/context/UserContext";
+import { Event } from "@/app/components/interfaces/interfaces";
 
 export default function Form() {
-    const [event, setEvent] = useState(undefined);
+    const [event, setEvent] = useState<Event | any>(undefined);
 
     // Address form
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [addressLine, setAddressLine] = useState("");
-    const [addressLine2, setAddressLine2] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [zipCode, setZipCode] = useState("");
+    const [name, setName] = useState<string | null>(null);
+    const [email, setEmail] = useState<string | null>(null);
+    const [addressLine, setAddressLine] = useState<string | null>(null);
+    const [addressLine2, setAddressLine2] = useState<string | null>(null);
+    const [city, setCity] = useState<string | null>(null);
+    const [state, setState] = useState<string | null>(null);
+    const [zipCode, setZipCode] = useState<string | null>(null);
     
+    const [invalidName, setInvalidName] = useState<boolean>(false);
+    const [invalidEmail, setInvalidEmail] = useState<boolean>(false);
+    const [invalidAddressLine, setInvalidAddressLine] = useState<boolean>(false);
+    const [invalidCity, setInvalidCity] = useState<boolean>(false);
+    const [invalidState, setInvalidState] = useState<boolean>(false);
+    const [invalidZipCode, setInvalidZipCode] = useState<boolean>(false);
 
     const params = useParams();
     const router = useRouter();
 
     const { userData, loading } = useUser();
 
+    const eventURL: string = typeof params.id === 'string' ? params.id : '';
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log(params.id)
-                const result = await getEventForm(params.id);
-                console.log(result);
+            
+                const result = await getEventForm(eventURL);
+            
                 if (result !== null) {
-                    console.log(result[0])
-                    setEvent(result[0]);
+                    setEvent(result);
                 }
             } catch (error) {
                 console.log(error);
@@ -46,54 +54,110 @@ export default function Form() {
     }, []); 
 
  
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
+        const validateEmail = (email:any) => email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
         e.preventDefault();
+
+        let errors:number = 0
+        
+        // Validate data
+        if (name === null) {
+            setInvalidName(true);
+            errors++
+        } else {
+            setInvalidName(false);
+            
+        }
+        if (email === null) {
+            setInvalidEmail(true);
+            errors++
+        } else if (!validateEmail(email)) {
+            setInvalidEmail(true);
+            errors++
+        } else {
+            setInvalidEmail(false);
+            
+        }
+        if (addressLine === null) {
+            setInvalidAddressLine(true);
+            errors++
+        } else {
+            setInvalidAddressLine(false);
+            
+        }
+        if (city === null) {
+            setInvalidCity(true);
+            errors++
+        } else {
+            setInvalidCity(false);
+            
+        }
+        if (state === null) {
+            setInvalidState(true);
+            errors++
+        } else {
+            setInvalidState(false);
+            
+        }
+        if (zipCode === null) {
+            setInvalidZipCode(true);
+            errors++
+        } else {
+            setInvalidZipCode(false);
+            errors--
+        }
+
+        if (errors > 0) {
+            toast.error("Please fill in all the required fields.");
+            return;
+        }
+
         const data = {
             name,
             email,
-            completeAddess: `${addressLine} ${addressLine2} ${city} ${state} ${zipCode}`,
+            completeAddress: `${addressLine} ${addressLine2}, ${city}, ${state} ${zipCode}`,
             eventUrl: event?.eventURL,
         };
         const result = await createAddress(data);
         if (result) {
-            router.push("/thankyou");
+            router.push(`/thankyou/${event?.eventURL}`);
         }
     }
 
 
-    const calculateTimeLeft = () => {
-        const eventDate = new Date(event?.eventDate);
-        const now = new Date().getTime();
-        const difference = eventDate - now;
+    // const calculateTimeLeft = () => {
+    //     const eventDate = new Date(event?.eventDate);
+    //     const now = new Date().getTime();
+    //     const difference = eventDate - now;
     
-        let timeLeft = {};
+    //     let timeLeft = {};
     
-        if (difference > 0) {
-          timeLeft = {
-            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-            hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-            minutes: Math.floor((difference / 1000 / 60) % 60),
-            seconds: Math.floor((difference / 1000) % 60),
-          };
-        }
+    //     if (difference > 0) {
+    //       timeLeft = {
+    //         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+    //         hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+    //         minutes: Math.floor((difference / 1000 / 60) % 60),
+    //         seconds: Math.floor((difference / 1000) % 60),
+    //       };
+    //     }
     
-        return timeLeft;
-    };
+    //     return timeLeft;
+    // };
     
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    // const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-          setTimeLeft(calculateTimeLeft());
-        }, 1000);
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //       setTimeLeft(calculateTimeLeft());
+    //     }, 1000);
     
-        return () => clearTimeout(timer);
-      });
-    const countdown = timeLeft.days !== undefined ? (
-        <p>Countdown: {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s</p>
-    ) : (
-        <p>Event has passed</p>
-    );
+    //     return () => clearTimeout(timer);
+    //   });
+    // const countdown = timeLeft.days !== undefined ? (
+    //     <p>Countdown: {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s</p>
+    // ) : (
+    //     <p>Event has passed</p>
+    // );
 
   
 
@@ -129,6 +193,8 @@ export default function Form() {
                     labelPlacement="outside"
                     placeholder="Mr. & Mrs. Jhon Doe"
                     isRequired
+                    isInvalid={invalidName}
+                    errorMessage={invalidName && "Please enter a valid name"}
                     onChange={(e) => setName(e.target.value)}
                     />
                     <Input
@@ -137,6 +203,8 @@ export default function Form() {
                     labelPlacement="outside"
                     placeholder="your@mail.com"
                     isRequired
+                    isInvalid={invalidEmail}
+                    errorMessage={invalidEmail && "Please enter a valid email"}
                     onChange={(e) => setEmail(e.target.value)}
                     />
                     <Input
@@ -145,6 +213,8 @@ export default function Form() {
                     labelPlacement="outside"
                     placeholder="123 E 4 S St"
                     isRequired
+                    isInvalid={invalidAddressLine}
+                    errorMessage={invalidAddressLine && "Please enter a valid address"}
                     onChange={(e) => setAddressLine(e.target.value)}
                     />
                      <Input
@@ -161,6 +231,8 @@ export default function Form() {
                         labelPlacement="outside"
                         placeholder="New York"
                         isRequired
+                        isInvalid={invalidCity}
+                        errorMessage={invalidCity && "Please enter a valid city"}
                         onChange={(e) => setCity(e.target.value)}
                         />
                         <Input
@@ -169,6 +241,8 @@ export default function Form() {
                         labelPlacement="outside"
                         placeholder="NY"
                         isRequired
+                        isInvalid={invalidState}
+                        errorMessage={invalidState && "Please enter a valid state"}
                         onChange={(e) => setState(e.target.value)}
                         />
                         <Input
@@ -177,6 +251,8 @@ export default function Form() {
                         labelPlacement="outside"
                         placeholder="10001"
                         isRequired
+                        isInvalid={invalidZipCode}
+                        errorMessage={invalidZipCode && "Please enter a valid zip code"}
                         onChange={(e) => setZipCode(e.target.value)}
                         />
                     </div>

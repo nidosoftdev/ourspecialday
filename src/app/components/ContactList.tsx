@@ -1,32 +1,33 @@
 "use client";
 import { useState, useEffect } from "react";
 import { getAllAddress } from "../server_layer/address";
+import { useParams } from "next/navigation";
+
 import data from "./data.json";
 
 export default function ContactList() {
   const [filter, setFilter] = useState("");
   const [filteredContacts, setFilteredContacts] = useState(data);
   const [isPrintView, setIsPrintView] = useState(false);
-
-
+  const [addresses, setAddresses] = useState<any>([]);
+  const params = useParams();
+  const eventURL: string = typeof params.id === 'string' ? params.id : '';
   useEffect(() => {
-    const getAddresses = async () => {
+    const fetchData = async () => {
       try {
-        console.log("here")
-        const result:any = await getAllAddress("AC8WTOtkY6P4oxtYdXFU");
-        console.log(result);
-        const filteredData = result.filter((contact:any) =>
-        contact.name.toLowerCase().includes(filter.toLowerCase()),
-      );
-        setFilteredContacts(filteredData);
+        const result = await getAllAddress(eventURL);
+        setAddresses(result);
       } catch (error) {
         console.log(error);
       }
-    }
-    // getAddresses();
+    };
+
+    fetchData();
+  }, [eventURL]);
+
  
 
-  }, [filter]);
+
 
   console.log(filteredContacts)
   const handlePrint = () => {
@@ -52,7 +53,7 @@ export default function ContactList() {
         Download as PDF
       </button>
       <ul className="flex flex-col gap-4">
-        {filteredContacts.map((contact:any, index:any) => {
+        {addresses.map((contact:any, index:any) => {
           return (
             <li
               key={index}
@@ -96,7 +97,7 @@ export default function ContactList() {
                     <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
                     <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
                   </svg>
-                  <p>{contact.address}</p>
+                  <p>{contact.completeAddress}</p>
                 </div>
               </div>
               <div className="hover:text-red-600 cursor-pointer">
