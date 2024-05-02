@@ -8,12 +8,13 @@ import { Event } from '../../components/interfaces/interfaces'
 import { getEventForm } from '../../server_layer/event';
 import Image from 'next/image'
 import { CustomSpinner } from '@/app/components/customSpinner';
+import CopyToClipBoard from "../../components/copyToClipboard";
 export default function page() {
   
   const [event, setEvent] = useState<Event | any>(undefined)
   const [form, setForm] = useState<any>(undefined)
   const [loading, setloading] = useState(true);
-  
+  const baseUrl = window.location.origin
   const router = useRouter()
   const params = useParams()
 
@@ -64,13 +65,14 @@ export default function page() {
           </div>
           <div>
             {form ?
-            <a href={`/newform/${event?.eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
+            <><a href={`/newform/${event?.eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
                         border rounded-md shadow-sm 
                       hover:bg-zinc-50 mt-8">
               <Image src="/form.png" width={40} height={40} alt="icon of a calendar"/>
-
-              Edit Address Form
-            </a>:
+              
+              Edit Address Form 
+              
+            </a><CopyToClipBoard text={`${baseUrl}//form//${eventURL}`} name="AddressForm Link:"/></>:
             <a href={`/newform/${event?.eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
             border rounded-md shadow-sm 
           hover:bg-zinc-50 mt-8">
