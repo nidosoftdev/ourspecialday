@@ -55,7 +55,7 @@ export default function page() {
       </div>
       <div>
         {form ?
-         <a href={`/newform/${event?.eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
+         <a href={`/form/edit/${event?.eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
                     border rounded-md shadow-sm 
                    hover:bg-zinc-50 mt-8">
           <Image src="/form.png" width={40} height={40} alt="icon of a calendar"/>
@@ -70,16 +70,16 @@ export default function page() {
         Create Address Form
         </a>
         }
-        <a href="" className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
+        {/* <a href="" className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
                     border rounded-md shadow-sm 
                    hover:bg-zinc-50 mt-4">
                     <Image src="/site.png" width={40} height={40} alt="icon of a calendar"/>
           Create Event site
-        </a>
+        </a> */}
         <a href={`/addressbook/${eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
                     border rounded-md shadow-sm 
                    hover:bg-zinc-50 mt-4">
-                    <Image src="/site.png" width={40} height={40} alt="icon of a calendar"/>
+                    <Image src="/pin.webp" width={40} height={40} alt="icon of a calendar"/>
           Check your addresess
         </a>
       </div>

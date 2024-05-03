@@ -158,26 +158,34 @@ export const createEvent = async (data:any) => {
 // Create new Event
 export const createEventForm = async (data:any) => {
   try {
-
-
-  
-
-
-      
       // This needs to be set properly, but since we are not sure what is going to be inside it as yet
       const newEvent = await addDoc(eventFormCollectionRef, data);
 
-      return {"newEvent added with ID: ":  newEvent.id};
-
- 
-    
+      return {"newEvent added with ID: ":  newEvent.id};    
   } catch (err) {
     console.error("Error adding newEvent: ", err);
     return err;
   }
 };
 
-export const getEventForm = async (eventURL:string)=> {
+//Update event form
+
+export const updateEventForm = async (id:string, updatedData:any) => {
+  console.log(id)
+  try {
+    // Update the event document with the new data
+    await updateDoc(doc(eventFormCollectionRef, id), updatedData);
+
+    console.log('Event updated successfully.');
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error updating event:', error);
+    throw error;
+  }
+};
+
+export const getEventForm = async (eventURL:any)=> {
   
     const eventquery = query(eventFormCollectionRef, where("eventURL", "==", eventURL));
     try {
