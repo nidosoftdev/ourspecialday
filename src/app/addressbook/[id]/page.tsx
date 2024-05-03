@@ -12,7 +12,7 @@ export default function AdressBook() {
 
   return (
     <div className="container">
-      <h1 className="text-3xl font-bold">Adress Book</h1>
+      <h1 className="text-3xl font-bold">Address Book</h1>
       <div className="mt-8">
         <ContactList />
       </div>

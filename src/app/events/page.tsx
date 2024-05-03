@@ -2,10 +2,13 @@
 import { useEffect, useState } from 'react'
 import { getAllEvent } from '../server_layer/event'
 import { useUser } from "../components/context/UserContext";
-import {Breadcrumbs, BreadcrumbItem, Skeleton} from "@nextui-org/react"; 
+import {Breadcrumbs, BreadcrumbItem, Skeleton} from "@nextui-org/react";
+import {CustomSpinner} from "../components/customSpinner"
 
 export default function page() {
   const [events, setEvents] = useState<any>([])
+  const [loading, setloading] = useState(true);
+  
 
   const { userData } = useUser()
 
@@ -13,6 +16,7 @@ export default function page() {
     const fetchEvents = async ()=> {
       const result = await getAllEvent(userData?.uid)
       setEvents(result)
+      setloading(false)
     }
     fetchEvents()
   
@@ -31,7 +35,8 @@ export default function page() {
           <p className='text-xs text-slate-500 mt-4'>Select an event to edit or delet it</p>
         </div>
         <div className='mt-8 flex flex-col md:flex-row gap-3 flex-wrap'>
-            {events.map((event: any, key:any)=> {
+          {loading? <CustomSpinner/>:
+            <>{events.map((event: any, key:any)=> {
                 return (
                     <a key={event.id}
                     href={`/events/${event.eventURL}`}
@@ -50,7 +55,7 @@ export default function page() {
                         <p className='text-md md:text-xl'>{event.eventName}</p>
                     </a>
                 )
-            })}
+            })}</>}
         </div>
         <div>
           <a href="./newevent" className='block bg-primary rounded-md py-3 px-2 mt-8 w-fit'>Create new event</a>

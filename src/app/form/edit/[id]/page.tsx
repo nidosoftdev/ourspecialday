@@ -21,7 +21,7 @@ export default function AddresForm() {
 
   const params = useParams();
   const router = useRouter();
-  console.log(eventFormDate)
+
   useEffect(()=> {
     if (params.id === null) {
       throw new Error("Event ID is missing.");
@@ -39,7 +39,7 @@ export default function AddresForm() {
     fetchEvent()
   }
   , [params.id])
-  console.log(event)
+
   const handleSubmit = async (e: any) => {
 
     const data = {
