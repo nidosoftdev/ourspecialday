@@ -28,11 +28,15 @@ h1, h2, h3 {
 @media print {
     body {
         font-size: 12pt;
+        display: flex;
     }
     .contact-item {
         border: none;
         padding: 0;
         margin-bottom: 0;
+    }
+    .print-address {
+        flex-direction: row !important;
     }
     .no-print {
         display: none;

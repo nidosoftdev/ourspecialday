@@ -4,7 +4,7 @@ import { getAllEvent } from '../server_layer/event'
 import { useUser } from "../components/context/UserContext";
 import {Breadcrumbs, BreadcrumbItem, Skeleton} from "@nextui-org/react";
 import {CustomSpinner} from "../components/customSpinner"
-
+import Back from '../components/Back';
 export default function page() {
   const [events, setEvents] = useState<any>([])
   const [loading, setloading] = useState(true);
@@ -21,14 +21,11 @@ export default function page() {
     fetchEvents()
   
   }, [userData])
-  console.log(events)
+
   return (
     <div className='container min-h-screen mt-8'>
         <div className='mb-8'>
-          <Breadcrumbs variant={"solid"}>
-            <BreadcrumbItem href='/dashboard'>Dashboard</BreadcrumbItem>
-            <BreadcrumbItem>Events</BreadcrumbItem>
-          </Breadcrumbs>
+          <Back url={"/dashboard"}/>
         </div>
         <div>
           <h1 className='text-3xl font-bold'>Manage Events</h1>

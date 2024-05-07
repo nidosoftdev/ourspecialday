@@ -52,7 +52,7 @@ export default function ContactList() {
       >
         Download as PDF
       </button>
-      <ul className="flex flex-col gap-4">
+      <ul className="flex flex-col gap-4 print-address">
         {addresses.map((contact:any, index:any) => {
           return (
             <li
@@ -61,7 +61,7 @@ export default function ContactList() {
             >
               <div>
                 <h2 className="text-lg font-bold">{contact.name}</h2>
-                <div className="mt-2 flex items-center gap-2">
+                {/* <div className="mt-2 flex items-center gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="icon icon-tabler icon-tabler-mail"
@@ -79,7 +79,7 @@ export default function ContactList() {
                     <path d="M3 7l9 6l9 -6" />
                   </svg>
                   <p>{contact.email}</p>
-                </div>
+                </div> */}
                 <div className="mt-2 flex gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

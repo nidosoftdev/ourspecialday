@@ -8,6 +8,7 @@ import { createEvent, getEventUrl } from "../server_layer/event";
 import { useUser } from "../components/context/UserContext";
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import Back from '../components/Back';
 
 export default function NewEvent() {
     const [availability, setAvailability] = useState(true);
@@ -55,7 +56,9 @@ export default function NewEvent() {
   return (
     <div className='container min-h-screen'>
         <div className='max-w-xl mt-8'>
-            
+            <div className="mb-8">
+                <Back url="/dashboard"/>
+            </div>
             
                 <h1 className="text-3xl font-bold">Create a new event</h1>
                 <div className="mt-8 flex flex-col gap-8">
@@ -73,7 +76,7 @@ export default function NewEvent() {
                     type="text"
                     labelPlacement="outside"
                     placeholder="jhonjenwedding"
-                    description="This is for the URL of your event e.g:havagala.com/form/jhonjenwedding"
+                    description="This is for the URL of your event e.g: havagala.com/form/jhonjenwedding"
                     isRequired
                     isInvalid={!availability}
                     errorMessage={!availability && "Event url is already taken"}
