@@ -97,7 +97,7 @@ export const getAllAddress = async (eventURL) => {
   const eventquery = query(addressCollectionRef, where("eventUrl", "==", eventURL));
 
     try {
-        console.log(eventURL);
+     
         const querySnapshot = await getDocs(eventquery);
      
         const addresses = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));

@@ -63,7 +63,7 @@ export const deleteEventById = async (id:string, userId:string) => {
       console.error("Error deleting Event:", error);
       throw error;
     }
-  };
+ };
 
 // Get a single Event by an specific user
 export const getEventById = async(eventURL:any)=>{
