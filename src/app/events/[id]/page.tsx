@@ -25,7 +25,7 @@ export default function page() {
     const fetchEvent = async ()=> {
       const result = await getEventById(eventURL)
       setEvent(result)
-     
+      setloading(false)
     }
     fetchEvent()
 
@@ -33,7 +33,7 @@ export default function page() {
       const result = await getEventForm(eventURL)
       if (result) {
         setForm(result)
-        setloading(false)
+        
       
       }
     }
