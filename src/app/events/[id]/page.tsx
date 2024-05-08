@@ -82,8 +82,15 @@ export default function page() {
           <div>
             {form ?
             <div className="mt-8">
-              <CopyToClipBoard text={`${baseUrl}/form/${eventURL}`} name="Link for form:"/>
-
+              <CopyToClipBoard text={`${baseUrl}/form/${eventURL}`} name=""
+              />
+              <div>
+                <a
+                  className='px-4 py-2 bg-primary text-black rounded block mt-4 w-fit text-xs' 
+                  href={`/form/${eventURL}`}>
+                  Open Address Form
+                </a>
+              </div>
               <a href={`/form/edit/${event?.eventURL}`} className="flex items-center md:w-1/2 w-full px-3 py-4 cursor-pointer gap-4 
                         border rounded-md shadow-sm 
                       hover:bg-zinc-50 mt-4">
@@ -111,7 +118,7 @@ export default function page() {
                         border rounded-md shadow-sm 
                       hover:bg-zinc-50 mt-4">
                         <Image src="/pin.webp" width={40} height={40} alt="icon of a calendar"/>
-              Check your addresess
+              Your addresess
             </a>
           </div>
           <div>

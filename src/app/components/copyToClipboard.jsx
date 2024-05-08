@@ -3,6 +3,8 @@ import {Snippet} from "@nextui-org/react";
 
 export default function CopyToClipBoard({text, name}) {
   return (
-    <Snippet symbol={name}>{text}</Snippet>
+    <Snippet size="sm" 
+    variant="flat" color="warning"
+    symbol={name}>{text}</Snippet>
   );
 }

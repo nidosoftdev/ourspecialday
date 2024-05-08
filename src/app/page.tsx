@@ -27,9 +27,9 @@ export default function Home() {
           <div className="">
             <h1 className="text-left text-3xl">Why Havagala?</h1>
           
-              <p className="text-3xl font-bold mt-6">
+              <h2 className="text-3xl font-bold mt-6">
                 We’re positive your invitations look amazing! 
-              </p>
+              </h2>
               <p className="text-xl mt-8">
               Let us help you send it to those who want to see it! 
               (We can’t let those photoshoot outfits go to waste🔥🔥🔥)

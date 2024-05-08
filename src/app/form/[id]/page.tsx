@@ -8,8 +8,9 @@ import { useRouter, useParams } from "next/navigation"
 import { Input, NextUIProvider, Textarea, Tooltip, Button } from "@nextui-org/react";
 import { useUser } from "@/app/components/context/UserContext";
 import { Event } from "@/app/components/interfaces/interfaces";
-
+import { CustomSpinner } from '@/app/components/customSpinner';
 export default function Form() {
+    const [loading, setloading] = useState(true);
     const [event, setEvent] = useState<Event | any>(undefined);
 
     // Address form
@@ -31,7 +32,7 @@ export default function Form() {
     const params = useParams();
     const router = useRouter();
 
-    const { userData, loading } = useUser();
+    const { userData } = useUser();
 
     const eventURL: string = typeof params.id === 'string' ? params.id : '';
 
@@ -43,6 +44,7 @@ export default function Form() {
             
                 if (result !== null) {
                     setEvent(result);
+                    setloading(false)
                 }
             } catch (error) {
                 console.log(error);
@@ -162,7 +164,12 @@ export default function Form() {
   
 
     return (
-        <div className="flex flex-col md:flex-row gap-8 container">
+        <div className="flex flex-col md:flex-row gap-8 container min-h-screen">
+            {loading?
+            <div className="w-full grid place-items-center">
+                <CustomSpinner/>
+            </div>:
+            <>
             <section className="w-full md:w-1/2 h-[300px] md:h-[850px] grid place-items-center rounded-md bg-amber-100 relative">
 
                 {/* <h1 className="text-3xl md:text-6xl md:hidden font-bold absolute z-50 bg-white p-2">{event?.formTitle}</h1> */}
@@ -261,6 +268,8 @@ export default function Form() {
                     </Button>
                 </section>
             </div>
+            </>
+            }
         </div>
     )
 }
