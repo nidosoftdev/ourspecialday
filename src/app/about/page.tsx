@@ -25,7 +25,7 @@ export default function About() {
         <div className="mt-4">
             <h2 className="text-2xl font-semibold text-gray-700">Contact Us</h2>
             <p className="text-gray-600 mt-2 max-w-2xl">
-                Need to get in touch? Contact us at <a href="mailto:support@havagala.com" className="text-blue-500">support@havagala.com</a> or call us at (123) 456-7890.
+                Need to get in touch? Contact us at <a href="mailto:hello@havagala.com" className="text-blue-500">hello@havagala.com</a> or call us at (123) 456-7890.
             </p>
         </div>
     </div>
