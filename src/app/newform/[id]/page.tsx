@@ -44,8 +44,6 @@ export default function AddresForm() {
   const handleSubmit = async (e: any) => {
     const imageResult = await imageUploader(imageFile)
     if(imageResult){
-      
-   
     // Save the image url in your object
 
     const data = {
