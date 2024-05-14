@@ -82,8 +82,7 @@ export default function page() {
           <div>
             {form ?
             <div className="mt-8">
-              <CopyToClipBoard text={`${baseUrl}/form/${eventURL}`} name=""
-              />
+              <CopyToClipBoard text={`${baseUrl}/form/${eventURL}`} name=""/>
               <div>
                 <a
                   className='px-4 py-2 bg-primary text-black rounded block mt-4 w-fit text-xs' 

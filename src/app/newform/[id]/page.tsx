@@ -9,7 +9,8 @@ import { createEventForm, getEventById } from "../../server_layer/event";
 import {Event} from "../../components/interfaces/interfaces"
 import {Breadcrumbs, BreadcrumbItem, Skeleton} from "@nextui-org/react"; 
 import {parseDate, getLocalTimeZone, parseTime} from "@internationalized/date";
-
+import {imageUploader} from "../../utils/imageUploader"
+import Image from "next/image";
 export default function AddresForm() {
 
   const [event, setEvent] = useState<Event | any>(null);
@@ -17,7 +18,9 @@ export default function AddresForm() {
   const [eventFormDate, setEventFormDate] = useState<any>("");
   const [eventFormTime, setEventFormTime] = useState<any>("");
   const [formDescription, setFormDescription] = useState("");
-  const [picture, setPicture] = useState<string | null>(null);
+  const [picture, setPicture] = useState<string |null>(null);
+  const [imageFile, setimageFile] =  useState<File | null>(null);
+  
 
   const params = useParams();
   const router = useRouter();
@@ -39,28 +42,33 @@ export default function AddresForm() {
   , [params.id])
 
   const handleSubmit = async (e: any) => {
+    const imageResult = await imageUploader(imageFile)
+    if(imageResult){
+      
+   
+    // Save the image url in your object
 
     const data = {
       formTitle,
       eventFormDate,
       eventFormTime,
       formDescription,
-      picture,
+      picture:imageResult,
       eventURL: event?.eventURL,
     };
     console.log(data);
     const result = await createEventForm(data);
-    // if(result){
-    //   toast.success("Sucessfully Created an Event")
-    //   router.push("/dashboard")
-    // }
-    // else{
-    //   toast.error("Fail to create and Event")
-    // }
+    if(result){
+      toast.success("Sucessfully Created an Event")
+      router.push("/dashboard")
+    }
+    else{
+      toast.error("Fail to create and Event")
+    }
+    }
   };
 
-
-
+ 
   return (
     <div className="container min-h-screen mt-8">
       {event ?
@@ -100,13 +108,20 @@ export default function AddresForm() {
 
             </div>
           
-            <Input
+            {/* <Input
               label="Image URL"
               type="text"
               labelPlacement="outside"
               placeholder="https://www.example.com/image.jpg"
               onChange={(e) => setPicture(e.target.value)}
-            />
+            /> */}
+            <input type="file" onChange={(event) => {
+              const file = event.target.files?.[0];
+              if(file){
+                setimageFile(file)
+              };
+            }}/>
+                     
             <div className="flex gap-4">
             <div>
                 <div className="flex gap-4">
